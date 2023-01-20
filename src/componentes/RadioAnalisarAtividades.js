@@ -9,7 +9,7 @@ const RadioAA = () => {
  
   return (
     <View style={styles.radioContainer}>
-      <Text style={styles.textQuestion}>Atribua uma nota de 1 a 5 para essa tarefa.</Text>
+      <Text style={styles.textQuestion}>Atribua uma nota de 1 (não resolvida) a 5 (totalmente resolvida) para essa tarefa.</Text>
       <RadioButtonGroup
         containerStyle={styles.boxRadio}
         selected={current}
@@ -45,8 +45,7 @@ const styles = StyleSheet.create({
 
   radioContainer: {
     marginHorizontal: '5%',
-
-    width: "100%",
+    width: "90%",
   },
 
   circulo: {
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   },
 
   textQuestion: {
-    fontSize: 20,
+    fontSize: 18,
     color: THEME.COLORS.TEXT,
     padding: 5,
     fontWeight: 'bold'

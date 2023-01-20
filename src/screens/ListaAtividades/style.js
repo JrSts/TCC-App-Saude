@@ -9,32 +9,20 @@ const styles = StyleSheet.create({
     backgroundColor:THEME.COLORS.BACKGROUNDCOLOR,
   },
 
+  title: {
+    paddingTop: '5%',
+    fontSize: 20,
+    fontWeight:'bold',
+    color: THEME.COLORS.CARD4,
+    textAlign:'center',
+  },
+
   selectTurnoContainer:{
-    marginVertical: '5%',
+    marginTop: '3%',
     marginHorizontal: '20%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center"
-  },
-
-  containerHorario: {
-    margin: '5%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: "center"
-  },
-
-  containerRelogio: {
-    marginVertical: '5%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: "center"
-  },
-
-  labelHorario: {
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingHorizontal: '2%',
   },
 
   textTurno: {
@@ -52,46 +40,23 @@ const styles = StyleSheet.create({
     borderColor: THEME.COLORS.TEXT
   },
 
-  inputHour: {
-    fontSize: 18,
-    fontWeight: "bold",
-    padding:'2%',
-    borderRadius: 100,
-    backgroundColor: THEME.COLORS.PRIMARY1,
-
-  },
-
-  inputComentario: {
-    marginHorizontal: '5%',
-    minHeight:120,
-    maxHeight:120,
-    marginTop: '2%',
-    fontSize: 18,
-    padding:'5%',
-    borderRadius: 20,
-    backgroundColor: THEME.COLORS.CARD2,
-
-  },
-
-  questionText: {
-    marginHorizontal: '5%',
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 4,
-    borderColor: THEME.COLORS.TEXT
-  },
+  
 
   labelQuestionText: {
     marginHorizontal: '5%',
     borderColor: THEME.COLORS.TEXT
   },
 
+  containerButton: {
+    justifyContent: 'flex-end',
+    marginVertical: '3%',
+  },
+
   button: {
-    margin: '5%',
-    paddingVertical: '5%',
+    marginHorizontal: '5%',
+    padding: 20,
     backgroundColor: THEME.COLORS.BUTTONOK,
-    padding: 4,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     borderRadius: 50,
   },

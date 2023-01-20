@@ -10,17 +10,18 @@ const AdicionarLembrete = () => {
       <View style={styles.container}>
         <Header name="Lembretes"/>
         <ScrollView >
+        
         <TextInput
-           placeholder="Crie um lembrete para seu paciente" 
-           style={styles.textBox}
-           multiline={true}
+          placeholder="Digite aqui um Lembrete. " 
+          style={styles.textBox}
+          multiline={true}
         />
 
         </ScrollView>
         
-        {/*<TouchableOpacity style={styles.containerButton}>
-          <Text style={styles.textButton}>Adicionar Lembrete</Text>
-        </TouchableOpacity>*/}
+        <TouchableOpacity style={styles.containerButton}>
+          <Text style={styles.textButton}>Salvar Lembrete</Text>
+        </TouchableOpacity>
 
       </View>
     )

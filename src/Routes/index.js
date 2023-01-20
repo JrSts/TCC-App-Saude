@@ -10,6 +10,9 @@ import MenuProfissional from './../screens/MenuProfissional'
 import SelecionarPaciente from './../screens/SelecionarPaciente'
 import RealisarAtividade from './../screens/RealisarAtividade'
 import AdicionarAnotacoes from './../screens/AdicionarAnotacoes'
+import MarcarHorario from './../screens/MarcarHorario'
+import AdicionarObservacao from './../screens/AdicionarObservacao'
+import VisualisarLembrete from './../screens/VisualisarLembrete'
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +31,18 @@ export default function Routes() {
         component={AdicionarAtividade}
         options={{headerShown: false}}
       />
+
+      <Stack.Screen
+        name="AdicionarObservacao"
+        component={AdicionarObservacao}
+        options={{headerShown: false}}
+      />
+      
+      <Stack.Screen
+        name="MarcarHorario"
+        component={MarcarHorario}
+        options={{headerShown: false}}
+      />
       
       <Stack.Screen
         name="ListaAtividades"
@@ -38,6 +53,12 @@ export default function Routes() {
       <Stack.Screen
         name="AdicionarLembrete"
         component={AdicionarLembrete}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="VisualisarLembrete"
+        component={VisualisarLembrete}
         options={{headerShown: false}}
       />
 

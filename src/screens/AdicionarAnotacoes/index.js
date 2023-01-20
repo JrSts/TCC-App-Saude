@@ -1,4 +1,4 @@
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Header from '../../componentes/Header';
 import styles from './style';
@@ -7,22 +7,23 @@ import {useNavigation} from '@react-navigation/native'
 const AdicionarAnotacoes = () => {
   const navigation = useNavigation();
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <Header name="Anotacoes"/>
-        <ScrollView >
-        <TextInput
-           placeholder="Crie um Anotacão para seu paciente" 
-           style={styles.textBox}
-           multiline={true}
-        />
-
-        </ScrollView>
         
-        <TouchableOpacity style={styles.containerButtonLembretes}>
-          <Text style={styles.textButton}>Salvar Anotação</Text>
-        </TouchableOpacity>
-
-      </View>
+        <TextInput
+            placeholder="Crie um Anotacão aqui" 
+            style={styles.textBox}
+            multiline={true}
+        />
+        <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          <TouchableOpacity style={styles.containerButtonAnotacoes}>
+            <Text style={styles.textButton}>Salvar Anotação</Text>
+          </TouchableOpacity>
+        </View>
+        
+      </KeyboardAvoidingView>
     )
 }
 

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
 
   textBox: {
     margin: "5%",
+    marginVertical: "5%",
     padding: "3%",
     backgroundColor: THEME.COLORS.CARD2,
     minHeight: 140,
@@ -18,11 +19,16 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
 
-  containerButtonAnotacoes: {
+  text: {
+    color: "#fff",
+    fontSize: 14,
+  },
+
+  containerButton: {
     width: "90%",
     padding: "3%",
     margin:"5%",
-    backgroundColor: THEME.COLORS.ALERT,
+    backgroundColor: THEME.COLORS.PRIMARY4,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent:"center"

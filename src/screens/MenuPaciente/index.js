@@ -9,7 +9,7 @@ export default function MenuPaciente() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Header name="Paciente"/>
+      <Header name="Paciente" login="Login"/>
       <ProfileConteiner />
       
       <View style={styles.cardContainer}>
@@ -17,7 +17,7 @@ export default function MenuPaciente() {
           <Text style={styles.cardLabel}>Atividades</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cardLembrete} onPress={ () => navigation.navigate("AdicionarLembrete")}>
+        <TouchableOpacity style={styles.cardLembrete} onPress={ () => navigation.navigate("VisualisarLembrete")}>
           <Text style={styles.cardLabel}>Lembretes</Text>
         </TouchableOpacity>
       </View>

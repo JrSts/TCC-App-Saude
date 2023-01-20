@@ -4,7 +4,8 @@ import THEME from './../../theme';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: THEME.COLORS.BACKGROUNDCOLOR     
+    backgroundColor: THEME.COLORS.BACKGROUNDCOLOR,
+    justifyContent: "center",
   },
   
   image: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
 
   title:{
     fontWeight: "bold",
-    fontSize: 22,
+    fontSize: 28,
     color: THEME.COLORS.CARD1,
     paddingVertical: "3%",
     justifyContent: "center",
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     marginHorizontal: '5%',
-    justifyContent:"space-between"
+    justifyContent:"space-around"
   },
 
   buttoncEsqueceuSenha: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: THEME.COLORS.CARD1,
     marginTop:"2%",
-    padding: "2%",
+    padding: "3%",
     borderRadius: 15,
     alignItems: 'center',
   },

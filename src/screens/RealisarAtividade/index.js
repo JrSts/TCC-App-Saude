@@ -10,13 +10,10 @@ export default function RealisarAtividade() {
   return (
     <View style={styles.container}>
       <Header name="Atividades"/>
-           
-      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate('ListaAtividades')}>
-        <Text style={styles.textButton}>Escrever</Text>
-      </TouchableOpacity> 
-      <AtividadePaciente name="Dintar" style={styles.textButton}/>
-      <AtividadePaciente name="Desenhar" style={styles.textButton}/>
-      <AtividadePaciente name="Ler" style={styles.textButton}/>
+      <AtividadePaciente name="Escrever" style={styles.textButton} />
+      <AtividadePaciente name="Pintar" style={styles.textButton} />
+      <AtividadePaciente name="Desenhar" style={styles.textButton} />
+      <AtividadePaciente name="Ler" style={styles.textButton} />
 
     </View>
       

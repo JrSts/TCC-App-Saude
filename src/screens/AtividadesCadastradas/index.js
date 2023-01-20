@@ -17,12 +17,13 @@ export default function AtividadesCadastradas(){
           <Atividade name="Escrever" />
           <Atividade name="Ler" />
       </ScrollView>
-      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate("AdicionarLembrete") }>
-        <Text style={styles.textButton}>Adicionar Lembrete</Text>
+      
+      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate("AdicionarAtividade") }>
+        <Text style={styles.textButton}>Adicionar Atvidade</Text>
       </TouchableOpacity>
       <Text style={{fontSize: 18, fontWeight: 'bold'}}>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.textButton} onPress={ () => navigation.navigate("AdicionarAtividade") }>Adicionar Atvidade</Text>
+      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate("AdicionarLembrete") }>
+        <Text style={styles.textButton}>Adicionar Lembrete</Text>
       </TouchableOpacity>
  
     </View>

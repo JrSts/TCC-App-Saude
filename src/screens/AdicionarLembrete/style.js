@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
 
+  text: {
+    color: "#fff",
+    fontSize: 14,
+  },
+
   containerButton: {
     width: "90%",
     padding: "3%",

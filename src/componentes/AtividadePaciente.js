@@ -11,12 +11,24 @@ const AtividadePaciente = (props) => {
       <TouchableOpacity style={styles.buttonTask} onPress={() => navigation.navigate('Atividade')}>
         <Text style={styles.textTask}>{props.name}</Text>
       </TouchableOpacity>
+      <View style={styles.buttonsEditDelete}>
+        <TouchableOpacity onPress={() => navigation.navigate("MarcarHorario")}>
+          <Icon name="alarm-outline" size={30} color={THEME.COLORS.PRIMARY1}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ListaAtividades')}>
+          <Icon name="checkmark-circle-outline" size={30} color={THEME.COLORS.PRIMARY1}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AdicionarObservacao')}>
+          <Icon name="chatbubble-ellipses-outline" size={30} color={THEME.COLORS.PRIMARY1}/>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   containerTask: {
+    flexDirection: 'row',
     alignItems: 'center',
     padding: "4%",
     width: "90%",
@@ -32,9 +44,16 @@ const styles = StyleSheet.create({
   },
 
   buttonTask: {
-    width: "100%",
+    width: "65%",
+    justifyContent: 'center'
   },
 
+  buttonsEditDelete: {
+    justifyContent: 'space-between',
+    width: "30%",
+    flexDirection: 'row',
+
+  },
 });
 
 export default AtividadePaciente;

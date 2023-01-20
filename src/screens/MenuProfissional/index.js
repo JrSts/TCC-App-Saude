@@ -9,7 +9,7 @@ export default function MenuProfissional() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>   
-      <Header name="AAT" login="Login"/>
+      <Header name="Profissional" login="Login"/>
       <ProfileConteiner />
       <View style={styles.cardContainer}>
         <TouchableOpacity style={styles.cardAddPaciente} onPress={() => navigation.navigate('CadastrarPaciente')}>
