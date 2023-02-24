@@ -1,20 +1,19 @@
-import { StyleSheet } from "react-native";
+const { StyleSheet } = require("react-native");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
+
   content: {
     flex: 11,
-    
+    paddingHorizontal: 15,
   },
-  subtitle:{
+  subtitle: {
+    fontSize:20,
     top: -25,
-    textAlign: "center",
-    fontSize: 18
-  },
-  
+    textAlign:"center"
+  }
 })
 
 export default styles

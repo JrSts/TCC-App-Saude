@@ -1,20 +1,17 @@
 import { StyleSheet } from "react-native";
+import THEME from "../../THEME";
+
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-
+    flex:1,
+    justifyContent:"center",
   },
+
   content: {
     flex: 11,
-    
-  },
-  subtitle:{
-    top: -25,
-    textAlign: "center",
-    fontSize: 18
-  },
-  
+    marginTop: 10
+  }
 })
 
 export default styles
