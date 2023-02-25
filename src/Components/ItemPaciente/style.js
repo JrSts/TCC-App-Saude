@@ -3,13 +3,15 @@ import THEME from '../../THEME'
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     flexDirection: "row",
     backgroundColor: THEME.COLORS.INPUT,
     alignItems:"center",
+    justifyContent: "space-between",
     borderRadius: 20,
     marginBottom: 10,
   },
+
   avatar:{
     paddingHorizontal: 15,
     color: THEME.COLORS.BUTTON,

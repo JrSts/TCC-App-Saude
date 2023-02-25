@@ -8,7 +8,7 @@ export default function FormCadastroPaciente() {
     <View style={styles.container}>
       <Input title='Nome' />
       <Input title='Apelido' />
-      <Input title='Idade' />
+      <Input title='Data de Nascimento' />
       <Input title='Nome do Responsável' />
       <Input title='Telefone' />
       <Input title='Hipótese Diagnóstica' />

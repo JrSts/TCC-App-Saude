@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1032449790646",
+    "project_id": "tcc-app-saude",
+    "storage_bucket": "tcc-app-saude.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032449790646:android:0d7d5f2a9c29f9c4ee8c17",
+        "android_client_info": {
+          "package_name": "com.tcc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032449790646-i7dp0iiu52ij5cbli8urega2tcc383m5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCv6XTZBe6FifSDjaAq3s_qs9QMbJVbq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032449790646-i7dp0iiu52ij5cbli8urega2tcc383m5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
