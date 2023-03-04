@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: "5%",
+    marginVertical: "5%",
     color: THEME.COLORS.BUTTON
   },
 
@@ -19,7 +19,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: "5%",
     color: THEME.COLORS.BUTTON
+  },
+
+  isFono: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+
+  isFonoLabelOn : {
+    fontSize: 20,
+    color: THEME.COLORS.BUTTON,
+    fontWeight: 'bold'
+  },
+
+  isFonoLabelOff : {
+    fontSize: 20,
+    color: THEME.COLORS.TEXT,
+    fontWeight: 'bold'
   }
+
 })
 
 export default styles

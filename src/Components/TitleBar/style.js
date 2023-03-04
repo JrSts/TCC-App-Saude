@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     borderBottomColor: THEME.COLORS.BUTTON,
     borderBottomWidth: 2,
     flexDirection: "row",
-    justifyContent:"center",
+    justifyContent:"center", 
   },
 
   title: {

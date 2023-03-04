@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: "3%",
+    elevation: 10
   },
 
   buttonLabel: {

@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './style'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from '@expo/vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
 
 export default function TitleBar(props) {

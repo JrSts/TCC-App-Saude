@@ -7,8 +7,9 @@ export default function CaixaTextoDescricao(props) {
     <View style={styles.box}>
       <TextInput 
         multiline 
-        placeholder={props.title} 
+        textAlignVertical='top'
         numberOfLines={5}
+        placeholder={props.title} 
         style={styles.input}
       />
     </View>

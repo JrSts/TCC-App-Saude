@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './style'
-import Icon from 'react-native-vector-icons/AntDesign'
+import Icon from '@expo/vector-icons/AntDesign'
 import THEME from '../../THEME'
 
 import { useNavigation} from '@react-navigation/native'

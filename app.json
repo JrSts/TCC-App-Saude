@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TCC",
-    "slug": "TCC",
+    "name": "TCC-App-Saude",
+    "slug": "TCC-App-Saude",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

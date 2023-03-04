@@ -4,11 +4,9 @@ import styles from './style'
 
 export default function Input(props) {
   return (
-
       <TextInput 
         placeholder= {props.title}
         style = {styles.input}
       />
-
   )
 }
