@@ -8,7 +8,6 @@ import Firestore from '@react-native-firebase/firestore'
 import THEME from '../../THEME'
 import { FontAwesome, FontAwesome5} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import StyleItem from '../../Components/ItemPaciente/style'
 
 export default function ListarPacientes() {
   const [paciente, setPaciente] = useState([])
@@ -82,19 +81,19 @@ export default function ListarPacientes() {
   function ItemPaciente( { item } ) {
     const navigation = useNavigation()
     return (
-      <View style={StyleItem.container}>
+      <View style={styles.containerTask}>
         <TouchableOpacity 
-          style={StyleItem.container} 
+          style={styles.containerTask} 
           onPress={() => navigation.navigate('AtividadesProfissional', {id: idPaciente})}
         >
-          <FontAwesome name='user-circle-o' size={50} style={StyleItem.avatar}/>
+          <FontAwesome name='user-circle-o' size={50} style={styles.avatar}/>
             <View>
-              <Text style={StyleItem.name}>{item.nome}</Text>
-              <Text style={StyleItem.idade}>{idade} Anos</Text>
+              <Text style={styles.name}>{item.nome}</Text>
+              <Text style={styles.idade}>{idade} Anos</Text>
             </View>
         </TouchableOpacity>
         <TouchableOpacity> 
-          <FontAwesome5 name='file-download' size={45} style={StyleItem.avatar}/>
+          <FontAwesome5 name='file-download' size={45} style={styles.avatar}/>
         </TouchableOpacity>
       </View>
     )
