@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: "3%",
     elevation: 10
   },
 

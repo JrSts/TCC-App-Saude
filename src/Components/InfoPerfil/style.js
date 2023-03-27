@@ -4,29 +4,38 @@ import THEME from '../../THEME'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
   },
   name: {
     fontSize: 25,
     fontWeight: "bold",
-    padding: 10
+    padding: 10,
+    textAlign: "center"
   },
   desc: {
     fontSize: 20,
-    padding: 5
+    textAlign: "center",
+    padding: 5,
   },
   img: {
     color: THEME.COLORS.BUTTON,
-    paddingBottom: 20
+    paddingBottom: 20,
+    alignSelf: "center"
   },
+
   editButton: {
-    position: "absolute",
-    top: -30,
-    right: -75,
   },
   
   edit: {
     color: THEME.COLORS.EDIT,
+  },
+
+  logoutButton: {
+  },
+
+  containerButtons:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    marginHorizontal: 30
   }
 })
 

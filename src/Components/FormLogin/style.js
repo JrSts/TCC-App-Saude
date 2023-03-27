@@ -9,24 +9,21 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    flex: 1,
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: "5%",
+    marginTop: "5%",
     color: THEME.COLORS.BUTTON
   },
 
-  containerButtons: {
-    flexDirection: "row",
-    justifyContent: 'space-between',
-    marginBottom: '3%',
-    paddingHorizontal: '3%',
+  containerForm: {
+    flex: 2
   },
   
   button: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: "5%",
+    fontSize:18,
+    marginTop: "8%",
     textAlign: 'center',
     color: THEME.COLORS.BUTTON,
   },

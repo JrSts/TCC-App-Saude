@@ -1,9 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './style'
 import { useNavigation } from '@react-navigation/native'
 
-export default function ButtonsAtividadeLembretes() {
+export default function ButtonsAtividadeLembretes(props) { 
+
+  const idPaciente = props.idPaciente
   const navigation = useNavigation()
   return (
     <View style={styles.container}>
@@ -12,7 +14,10 @@ export default function ButtonsAtividadeLembretes() {
           Adicionar Atividade
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonLembrete} onPress={ () => navigation.navigate('CadastrarLembrete')}>
+      <TouchableOpacity style={styles.buttonLembrete} onPress={ () => 
+        {
+          navigation.navigate('CadastrarLembrete', {idPaciente: idPaciente})
+        }}>
         <Text style={styles.buttonLabel}>
           Adicionar Lembrete
         </Text>

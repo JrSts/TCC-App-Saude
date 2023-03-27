@@ -5,7 +5,7 @@ import styles from './style'
 export default function CaixaLeituraDescrição(props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.msg}>{props.msg} A mensagem vem aqui!</Text>
+      <Text style={styles.msg}>{props.msg}</Text>
     </View>
   )
 }

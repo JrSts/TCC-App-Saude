@@ -10,7 +10,9 @@ import THEME from '../../THEME'
 import Input from '../../Components/Input'
 import { useNavigation } from '@react-navigation/native'
 
-export default function CadastrarAtividade() {
+export default function EditarAtividade({route}) {
+
+  const idTask = route.params.id
 
   const [checkedManha, setCheckedManha] = useState(false);
   const [checkedTarde, setCheckedTarde] = useState(false);
@@ -31,13 +33,35 @@ export default function CadastrarAtividade() {
   const [descricao, setDescricao] = useState('')
 
   const navigation = useNavigation()
+  useEffect(() => {
+    const subscriber = Firestore().collection('Atividades')
+    .onSnapshot(querySnapshot => {
+      querySnapshot.docs.map(doc => {
+        if (doc.id == idTask){
+          setNome(doc.data().nome)
+          setDescricao(doc.data().descricao)
+          setDomingo(doc.data().diasDaSemana[0])
+          setSegunda(doc.data().diasDaSemana[1])
+          setTerca(doc.data().diasDaSemana[2])
+          setQuarta(doc.data().diasDaSemana[3])
+          setQuinta(doc.data().diasDaSemana[4])
+          setSexta(doc.data().diasDaSemana[5])
+          setSabado(doc.data().diasDaSemana[6])
+          setCheckedManha(doc.data().turnos[0])
+          setCheckedTarde(doc.data().turnos[1])
+          setCheckedNoite(doc.data().turnos[2])
+        }
+      })
+    })
+    return () => subscriber()
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar title='Atividade'/>
       <View style={styles.content}>
         <Text style={styles.subtitle} >
-          Cadastro de Atividades
+          Editar Atividades
         </Text>
         <Input title="Nome da Atividade"  onChangeText={setNome} value={nome}/>
         <CaixaTextoDescricao title='Descrição da atividade' onChangeText={setDescricao} value={descricao}/>
@@ -138,24 +162,19 @@ export default function CadastrarAtividade() {
           /> 
           <Text style={styles.label}>Noite</Text>
         </View>
-        <ButtonsOkCancel ok={AddAtividade}/>
+        <ButtonsOkCancel ok={updateAtividade}/>
       </View>
     </SafeAreaView>
   )
 
-  function AddAtividade(){
-    Firestore().collection("Atividades").add({
-      nome,
-      descricao,
+  function updateAtividade(){
+    Firestore().collection('Atividades').doc(idTask).update({
+      nome: nome,
+      descricao: descricao,
       diasDaSemana: [domingo, segunda, terca, quarta, quinta, sexta, sabado],
       turnos: [checkedManha, checkedTarde, checkedNoite],
-      status: false,
-      observacao,
-      avaliacao,
-      alarme
     })
-    .then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso!"))
-    .catch((error) => Alert.alert("Adicionar Atividade", "Atividade não cadastrada. Erro: " + error))
-    .finally(navigation.goBack())
+    navigation.goBack()
+    Alert.alert('Atualizar Atividade', 'Atividade Atualizada com sucesso')
   }
 }

@@ -8,52 +8,57 @@ import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 
 export default function FormLogin() {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false)
 
   const navigation = useNavigation()
+
   
+  function handleForgotPassword() {
+    !email ?
+    Alert.alert("Recuperar senha", "Para recuperar sua senha preencha o campo Email com seu email cadastrado.")
+    :
+    Auth()
+    .sendPasswordResetEmail(email)
+    .then(() => {Alert.alert("Redefinição de Senha", 
+    "Enviamos um email para você redefinir a sua senha, verifique sua caixa de entrada.")})
+    .catch((error) => {console.log(error)})
+  }
+  
+  function handleLogin() {
+    if (email == '' || password == '') { 
+      Alert.alert("Login", "Preencha os dados de Email e senha corretamente para Entrar")
+    } else {
+      setIsLoading(true)
+      Auth().signInWithEmailAndPassword(email, password)
+      .then(() => {Alert.alert("Seja Bem Vindo!")})
+      .catch((error) => { Alert.alert("Erro => ", error) })
+      .finally(() => {setIsLoading(false)})
+    }
+  }
+
   return (
     <View style = {styles.container} >
       <Text style={styles.title}>Login</Text>
-      <TextInput style={StyleInput.input} placeholder="Email" onChangeText={setEmail}/>
-      <TextInput style={StyleInput.input} placeholder="Senha" onChangeText={setPassword} secureTextEntry/>
-      <TouchableOpacity 
-        style={StyleButton.buttonBox} 
-        isLoading={isLoading} 
-        onPress={ handleLogin }
-      >
-        {isLoading ? <ActivityIndicator />  : <Text style={StyleButton.buttonLabel}>Entrar</Text>}
-      </TouchableOpacity> 
-
-      <View style={styles.containerButtons}>
+      <View style={styles.containerForm}> 
+        <TextInput style={StyleInput.input} placeholder="Email" onChangeText={setEmail}/>
+        <TextInput style={StyleInput.input} placeholder="Senha" onChangeText={setPassword} secureTextEntry/>
+        <TouchableOpacity 
+          style={StyleButton.buttonBox} 
+          isLoading={isLoading} 
+          onPress={() => handleLogin()}
+        >
+          {isLoading ? <ActivityIndicator />  : <Text style={StyleButton.buttonLabel}>Entrar</Text>}
+        </TouchableOpacity> 
         <TouchableOpacity onPress={() => navigation.navigate('Cadastrar')}>
           <Text style={styles.button}>Não tenho cadastro</Text> 
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleForgotPassword}>
+        <TouchableOpacity onPress={() => handleForgotPassword()}>
           <Text style={styles.button}>Esqueci a Senha</Text> 
         </TouchableOpacity>  
       </View>
     </View>
   )
-
-  function handleForgotPassword() {
-    Auth()
-    .sendPasswordResetEmail(email)
-    .then(() => Alert.alert("Redefinição de Senha", 
-      "Enviamos um email para você redefinir a sua senha, verifique sua caixa de entrada."))
-    .catch((error) => console.log(error))
-  }
-
-  function handleLogin() {
-    setIsLoading(true)
-    Auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => Alert.alert("Login", "Logado com sucesso"))
-    .catch((error) => console.log(error))
-    .finally(setIsLoading(false))
-  }
-}
+}  

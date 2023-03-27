@@ -6,13 +6,13 @@ import THEME from '../../THEME'
 
 import { useNavigation} from '@react-navigation/native'
 
-export default function AtividadePaciente(props) {
+export default function AtividadePaciente({item}) {
   const navigation = useNavigation()
   return (
     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RealizarAtividade')}>
-      <Text style={styles.buttonLabel}>{props.name}</Text> 
+      <Text style={styles.buttonLabel}>{item.nome}</Text> 
       <Icon 
-        name= {props.finish ? 'checkcircleo' : 'hourglass'}
+        name= {item.status ? 'checkcircleo' : 'hourglass'}
         color={THEME.COLORS.BUTTON}
         size={35}
       />

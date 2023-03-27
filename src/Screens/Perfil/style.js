@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 11,
     paddingTop: 40,
-    alignItems:"center"
   }
 })
 

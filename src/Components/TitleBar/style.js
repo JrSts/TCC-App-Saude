@@ -3,17 +3,18 @@ import THEME from '../../THEME'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '8%',
     borderBottomColor: THEME.COLORS.BUTTON,
     borderBottomWidth: 2,
     flexDirection: "row",
     justifyContent:"center", 
   },
-
+  
   title: {
     fontSize: 25,
     fontWeight: "bold",
     color: THEME.COLORS.BUTTON,
+    position: "absolute"
   },
   
   button: {

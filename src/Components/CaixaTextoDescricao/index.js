@@ -11,6 +11,8 @@ export default function CaixaTextoDescricao(props) {
         numberOfLines={5}
         placeholder={props.title} 
         style={styles.input}
+        onChangeText={props.onChangeText}
+        value={props.value}
       />
     </View>
   )
