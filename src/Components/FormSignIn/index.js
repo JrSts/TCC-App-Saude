@@ -20,10 +20,11 @@ import THEME from '../../THEME'
 
 export default function FormSignIn() {
   
+  const [isLoading, setIsLoading] = useState(false)
+  const [isPaciente, setIsPaciente] = useState(true);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false)
-  const [isEnabled, setIsEnabled] = useState(false);
   const [dataNascimento, setDataNascimento] = useState('')
   const [phone, setPhone] = useState('')
   const [hipotese, setHipotese] = useState('')
@@ -33,28 +34,28 @@ export default function FormSignIn() {
   const [CRFono, setCRFono] = useState('')
   const [anotacoes, setAnotacoes] = useState('')
   const [lembrete, setLembrete] = useState('')
+  const idProfissional = ''
   
   const navigation = useNavigation()
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
         Cadastrar
       </Text>
-
-      <View style={styles.isFono}>
-        <Text style={!isEnabled ? styles.isFonoLabelOn : styles.isFonoLabelOff}>Sou Fonoaudiólogo</Text>
-        <View >
-          <Switch
-            trackColor={{ false: THEME.COLORS.GRAY, true: THEME.COLORS.BUTTON }}
-            thumbColor={THEME.COLORS.BACKGROUND}
-            ios_backgroundColor={THEME.COLORS.GRAY}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
-        <Text style={isEnabled ? styles.isFonoLabelOn : styles.isFonoLabelOff}>Sou Paciente</Text>
+      <View style={styles.isPaciente}>
+        <TouchableOpacity 
+          style={isPaciente ? styles.buttomSelected: styles.buttomUnselected}
+          onPress={() => setIsPaciente(true)}
+        >
+          <Text style={isPaciente ? styles.isPacienteLabelOn : styles.isPacienteLabelOff}>Sou Paciente</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => setIsPaciente(false)}
+          style={!isPaciente ? styles.buttomSelected: styles.buttomUnselected}  
+        >
+          <Text style={!isPaciente ? styles.isPacienteLabelOn : styles.isPacienteLabelOff}>Sou Fonoaudiólogo</Text>
+        </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.containerForm}>
@@ -62,7 +63,7 @@ export default function FormSignIn() {
           <TextInput style={StyleInput.input} placeholder="Nome" onChangeText={setNome} />
           <TextInput style={StyleInput.input} placeholder="Telefone" onChangeText={setPhone} />
           <TextInput style={StyleInput.input} placeholder="Data de Nascimento" onChangeText={setDataNascimento} />
-          {!isEnabled ?
+          {!isPaciente ?
             <TextInput style={StyleInput.input} placeholder="CRFono" onChangeText={setCRFono} />
           : 
             <View>
@@ -99,7 +100,7 @@ export default function FormSignIn() {
     Auth()
     .createUserWithEmailAndPassword(email, password)
     .then((res) => {
-      if (isEnabled) {
+      if (isPaciente) {
         Firestore()
           .collection("Pacientes")
           .add({
@@ -113,6 +114,7 @@ export default function FormSignIn() {
             email,
             anotacoes,
             lembrete,
+            idProfissional
           })
           .then(() => console.log("tudo certo"))
           .catch((error) => console.log("Erro => ", error))

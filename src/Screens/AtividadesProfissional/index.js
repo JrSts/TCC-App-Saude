@@ -7,19 +7,32 @@ import AtividadeProfissional from '../../Components/AtividadeProfissional'
 import THEME from '../../THEME'
 import ButtonsAtividadesLembretes from '../../Components/ButtonsAtividadesLembretes'
 import Firestore from '@react-native-firebase/firestore'
-import Auth from "@react-native-firebase/auth"
 
 export default function AtividadesProfissional({route}) {
 
-  const idPaciente = route.params.id
-  const userId = Auth().currentUser.uid
+  const [idPaciente, setIdPaciente] = useState('')
   const [atividade, setAtividade] = useState([])
   const [loading, setLoading] = useState(true)
-  
+  const id = route.params.id
+
+  useEffect(() => {
+    const subscriber = 
+      Firestore()
+      .collection('Pacientes')
+      .where('id','==', id)
+      .onSnapshot(query => {
+        query.docs.map(doc => {
+          setIdPaciente(doc.id)
+        })
+      })
+      return () => subscriber()
+  }, [id])
+
   useEffect(() => {
     setLoading(true)
     const subscriber = Firestore()
       .collection('Atividades')
+      .where('idPaciente','==', idPaciente)
       .onSnapshot(querySnapshot => {
         const data = querySnapshot.docs.map(doc => {
           return {
@@ -31,7 +44,7 @@ export default function AtividadesProfissional({route}) {
         setLoading(false)
       })
     return () => subscriber();
-  }, []);
+  }, [idPaciente]);
 
   return (
 

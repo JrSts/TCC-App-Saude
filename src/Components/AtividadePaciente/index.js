@@ -9,7 +9,7 @@ import { useNavigation} from '@react-navigation/native'
 export default function AtividadePaciente({item}) {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RealizarAtividade')}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RealizarAtividade', {item: item}) }>
       <Text style={styles.buttonLabel}>{item.nome}</Text> 
       <Icon 
         name= {item.status ? 'checkcircleo' : 'hourglass'}

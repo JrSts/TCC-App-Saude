@@ -10,14 +10,17 @@ import THEME from '../../THEME'
 import Input from '../../Components/Input'
 import { useNavigation } from '@react-navigation/native'
 
-export default function CadastrarAtividade() {
+export default function CadastrarAtividade({route}) {
 
+  const [nome, setNome] = useState('')
+  const [descricao, setDescricao] = useState('')
+  const [observacao, setObservacao] = useState('');
+  const [avaliacao, setAvaliacao] = useState([]);
+  const [alarme, setAlarme] = useState('');
+  
   const [checkedManha, setCheckedManha] = useState(false);
   const [checkedTarde, setCheckedTarde] = useState(false);
   const [checkedNoite, setCheckedNoite] = useState(false);
-  const [observacao, setObservacao] = useState(false);
-  const [avaliacao, setAvaliacao] = useState(false);
-  const [alarme, setAlarme] = useState(false);
 
   const [domingo, setDomingo] = useState(false)
   const [segunda, setSegunda] = useState(false)
@@ -26,11 +29,30 @@ export default function CadastrarAtividade() {
   const [quinta, setQuinta] = useState(false)
   const [sexta, setSexta] = useState(false)
   const [sabado, setSabado] = useState(false)
-  
-  const [nome, setNome] = useState('')
-  const [descricao, setDescricao] = useState('')
 
   const navigation = useNavigation()
+
+  const idPaciente = route.params.idPaciente
+
+  const AddAtividade = () => {
+    try {
+      Firestore().collection("Atividades").add({
+        nome,
+        descricao,
+        observacao,
+        alarme,
+        idPaciente,
+        avaliacao,
+        diasDaSemana: [domingo, segunda, terca, quarta, quinta, sexta, sabado],
+        turnos: [checkedManha, checkedTarde, checkedNoite],
+        status: false,
+      }).then(() => Alert.alert("Adicionar Atividade", "Atividade não cadastrada."))
+    } catch (error) {
+      Alert.alert("Adicionar Atividade", "Atividade não cadastrada. Erro: " + error)
+    }finally{
+      navigation.goBack()
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -143,19 +165,4 @@ export default function CadastrarAtividade() {
     </SafeAreaView>
   )
 
-  function AddAtividade(){
-    Firestore().collection("Atividades").add({
-      nome,
-      descricao,
-      diasDaSemana: [domingo, segunda, terca, quarta, quinta, sexta, sabado],
-      turnos: [checkedManha, checkedTarde, checkedNoite],
-      status: false,
-      observacao,
-      avaliacao,
-      alarme
-    })
-    .then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso!"))
-    .catch((error) => Alert.alert("Adicionar Atividade", "Atividade não cadastrada. Erro: " + error))
-    .finally(navigation.goBack())
-  }
 }

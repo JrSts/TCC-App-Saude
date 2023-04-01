@@ -12,14 +12,9 @@ export default function InfoPerfil(props) {
   const [data, setData] = useState({})
   const [idade, setIdade] = useState(0)
   
-  const currentUser = Auth().currentUser.uid
+  const idPaciente = props.idPaciente
 
   const navigation = useNavigation()
-
-  function signOut() {
-    Auth().signOut()
-    setIsPaciente(null)
-  }
 
   function getIdade(nascimento){
 
@@ -50,7 +45,7 @@ export default function InfoPerfil(props) {
     const subscriber = Firestore().collection('Profissional')
       .onSnapshot((querySnapshot) => {
         querySnapshot.docs.map((doc) => {
-          if (doc.data().id == currentUser){
+          if (doc.data().id == idPaciente){
             setIsPaciente(false)
             setData(doc.data())
             getIdade(doc.data().dataNascimento)
@@ -65,7 +60,7 @@ export default function InfoPerfil(props) {
     const subscriber = Firestore().collection("Pacientes")
     .onSnapshot((querySnapshot =>  {
       querySnapshot.docs.map((doc) => {
-        if (doc.data().id == currentUser){
+        if (doc.data().id == idPaciente){
           setIsPaciente(true)
           setData(doc.data())
           getIdade(doc.data().dataNascimento)
@@ -83,23 +78,18 @@ export default function InfoPerfil(props) {
       return doc.id
     }))
   }
- 
 
   return (
     <View style={styles.container}>
       <View style={styles.containerButtons}>
         <TouchableOpacity 
           style={styles.editButton} 
-          onPress={() => {navigation.navigate('AtualizarPerfil', {id:  convertIdProps()})}}
+          onPress={() => {navigation.navigate('EditarPaciente', {id:  idPaciente})}}
         >
           <FontAwesome name='pencil' size={30} style={styles.edit}/>
         </TouchableOpacity>
-        <TouchableOpacity tyle={styles.logoutButton} onPress={() => {signOut()}}>
-          <SimpleLineIcons name='logout' size={30} style={styles.edit} />
-        </TouchableOpacity>
       </View>
       <FontAwesome name='user-circle-o' style={styles.img} size={200}/>
-      { isPaciente ? 
         <View>
           <Text style={styles.name}>{data.nome}</Text>
           <Text style={styles.desc}>idade {idade} anos</Text>
@@ -107,15 +97,6 @@ export default function InfoPerfil(props) {
           <Text style={styles.desc}>Celular {data.phone}</Text>
           <Text style={styles.desc}>E-mail {data.email}</Text>
         </View>
-      :
-        <View>
-          <Text style={styles.name}>{data.nome}</Text>
-          <Text style={styles.desc}>Fonoaudiólogo(a)</Text>
-          <Text style={styles.desc}>CRFono {data.CRFono}</Text>
-          <Text style={styles.desc}>Celular {data.phone}</Text>
-          <Text style={styles.desc}>E-mail {data.email}</Text>
-        </View>
-      }
     </View>
   )
 }

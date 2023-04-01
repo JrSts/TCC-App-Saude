@@ -1,0 +1,26 @@
+import { StyleSheet } from "react-native"
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: Platform.OS == 'android' ? 20 : 0
+  },
+
+  content: {
+    flex: 11,
+    padding: '3%',
+  },
+
+  label: {
+    fontSize: 18,
+    fontWeight: "bold"
+  },
+
+  button: {
+    marginHorizontal: '3%',
+    bottom: 15
+  }
+})
+
+export default styles

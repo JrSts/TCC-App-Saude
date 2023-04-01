@@ -20,6 +20,17 @@ const styles = StyleSheet.create({
     color: THEME.COLORS.BUTTON
   },
 
+  buttomSelected: {
+    padding: 10,
+    backgroundColor: THEME.COLORS.BUTTON,
+    borderRadius: 25,
+  },
+
+  buttomUnselected: {
+    padding: 10,
+    borderRadius: 25,
+  },
+
   buton: {
     fontSize: 18,
     padding: '5%',
@@ -27,19 +38,19 @@ const styles = StyleSheet.create({
     color: THEME.COLORS.BUTTON
   },
 
-  isFono: {
+  isPaciente: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
   },
 
-  isFonoLabelOn : {
+  isPacienteLabelOn : {
     fontSize: 20,
-    color: THEME.COLORS.BUTTON,
+    color: THEME.COLORS.BACKGROUND,
     fontWeight: 'bold'
   },
 
-  isFonoLabelOff : {
+  isPacienteLabelOff : {
     fontSize: 20,
     color: THEME.COLORS.TEXT,
     fontWeight: 'bold'
