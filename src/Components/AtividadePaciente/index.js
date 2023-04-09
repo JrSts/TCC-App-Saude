@@ -17,6 +17,5 @@ export default function AtividadePaciente({item}) {
         size={35}
       />
     </TouchableOpacity>
-
   )
 }

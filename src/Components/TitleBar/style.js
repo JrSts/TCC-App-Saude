@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     height: '8%',
     borderBottomColor: THEME.COLORS.BUTTON,
-    borderBottomWidth: 2,
     flexDirection: "row",
     justifyContent:"center", 
   },

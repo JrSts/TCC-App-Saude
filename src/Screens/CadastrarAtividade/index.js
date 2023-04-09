@@ -30,6 +30,76 @@ export default function CadastrarAtividade({route}) {
   const [sexta, setSexta] = useState(false)
   const [sabado, setSabado] = useState(false)
 
+  const [diasDaSemana, setDiasDaSemana] = useState([])
+  const [turnos, setTurnos] = useState([])
+  const [matriz, setMatriz] = useState([])
+  const [diaDaSemana, setDiaDaSemana] = useState('')
+  const [turno, setTurno] = useState('')
+  const [valor, setValor] = useState('')
+
+  function preencherTurnos() {
+    let list = []
+    if (checkedManha){
+      list.push('Manhã')
+    }
+    if (checkedTarde){
+      list.push('Tarde')
+    }
+    if (checkedNoite){
+      list.push('Noite')
+    }
+    setTurnos(list)
+  }
+
+  function preencherMatriz() {
+    preencherDiasSemana()
+    preencherTurnos()
+    let diaDaSemana
+    let turno
+    let valor
+    let list = []
+    for (let i = 0; i < diasDaSemana.length; i++) {
+      for (let j = 0; j < turnos.length; j++) {
+        diaDaSemana = diasDaSemana[i]
+        turno = turnos[j]
+        valor = ''
+        list.push({diaDaSemana, turno, valor})
+      }
+    }
+    setMatriz(list)
+  }
+
+  function preencherDiasSemana(){
+    let list = []
+    if(domingo) {
+      list.push('Domingo')
+    } 
+    if(segunda) {
+      list.push('Segunda')
+    } 
+    if(terca) {
+      list.push('Terça')
+    } 
+    if(quarta) {
+      list.push('Quarta')
+    } 
+    if(quinta) {
+      list.push('Quinta')
+    } 
+    if(sexta) {
+      list.push('Sexta')
+    } 
+    if(sabado) {
+      list.push('Sábado')
+    }
+    setDiasDaSemana(list)
+    return list.length
+  }
+
+   useEffect(() => {
+     preencherMatriz()
+   }, [domingo, segunda, terca, quarta, quinta, sexta, sabado, checkedManha, checkedTarde, checkedNoite])
+
   const navigation = useNavigation()
 
   const idPaciente = route.params.idPaciente
@@ -39,14 +109,14 @@ export default function CadastrarAtividade({route}) {
       Firestore().collection("Atividades").add({
         nome,
         descricao,
-        observacao,
+        observacao: matriz,
         alarme,
         idPaciente,
-        avaliacao,
-        diasDaSemana: [domingo, segunda, terca, quarta, quinta, sexta, sabado],
-        turnos: [checkedManha, checkedTarde, checkedNoite],
+        avaliacao: matriz,
+        diasDaSemana: diasDaSemana,
+        turnos: turnos,
         status: false,
-      }).then(() => Alert.alert("Adicionar Atividade", "Atividade não cadastrada."))
+      }).then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso."))
     } catch (error) {
       Alert.alert("Adicionar Atividade", "Atividade não cadastrada. Erro: " + error)
     }finally{
@@ -164,5 +234,4 @@ export default function CadastrarAtividade({route}) {
       </View>
     </SafeAreaView>
   )
-
 }

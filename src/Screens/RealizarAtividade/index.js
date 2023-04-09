@@ -3,45 +3,94 @@ import React, { useEffect, useState } from 'react'
 import TitleBar from '../../Components/TitleBar'
 import styles from './style'
 import CaixaLeituraDescrição from '../../Components/CaixaLeituraDescricao'
-
 import { Ionicons, MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'
 import Button from '../../Components/Button'
 import { useNavigation } from '@react-navigation/native'
 import Firestore from '@react-native-firebase/firestore'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import notifee, { AndroidImportance, EventType, TriggerType }  from '@notifee/react-native'
 
 export default function RealizarAtividade({route}) {
 
   const item = route.params.item
-  const [alarme, setAlarme] = useState()
+  const [alarme, setAlarme] = useState('')
+  const [dataLabel, setDatalabel] = useState('Cadastrar Alarme')
+  const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const navigation = useNavigation()
+
+// notification
+
+ async function scheduleNotification(date) {
+   
+  const trigger = {
+    type: TriggerType.TIMESTAMP,
+    timestamp: date.getTime()
+  }
+
+  const channelId = await createChannelId()
+
+  await notifee.createTriggerNotification(
+    {
+      title: 'Alarme',
+      body: 'Vamos fazer as atividades de hoje?', 
+      android: { channelId }
+    }, trigger)
+  }
+
+  async function createChannelId() {
+    const channelId = await notifee.createChannel({
+      id: 'alarme',
+      name: 'Alarme',
+      vibration: true,
+      loopSound: true,
+      sound: 'default',
+      importance: AndroidImportance.HIGH
+    })
+    return channelId
+  }
+
+  useEffect(() => {
+    return notifee.onForegroundEvent(({type, detail}) => {
+      switch(type){
+        case EventType.DISMISSED:
+          console.log('O usuario descartou a notificacao')
+          break
+        case EventType.ACTION_PRESS:
+          console.log('O clicou na notificacao ', detail.notification)
+          break
+      }
+    })
+  },[])
+
+  useEffect (() => {
+    return notifee.onBackgroundEvent( async ({type, detail}) => {
+      if (type == EventType.PRESS){
+        console.log('Usuario Pressionaou aqui', detail.notification);
+      }
+    })
+  },[])
 
   useEffect(() => {
     const subscriber = Firestore().collection('Atividades')
       .onSnapshot(querySnapshot => {
         querySnapshot.docs.map( doc => {
           setAlarme(doc.data().alarme)
-          console.log('alarme', alarme)
           return {
             id: doc.id,
             ...doc.data()
           }
         })
       })
-  
     return () => subscriber()
-  }, [])
-
+  }, [alarme])
+    
   function addAlarme(date){
     Firestore().collection('Atividades').doc(item.id).update({
       alarme: date
     })
-    .then(() => Alert.alert('Alarme Cadastrado com Sucesso!'))
+    .then(() => console.log('Alarme Cadastrado com Sucesso!'))
   }
-
-  const [dataLabel, setDatalabel] = useState('Cadastrar Alarme')
-  const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false)
-  
-  const navigation = useNavigation()
 
   function showDateTimePicker(){
     setIsDateTimePickerVisible(true)
@@ -53,10 +102,11 @@ export default function RealizarAtividade({route}) {
  
   function handleDatePicked(date) {
     hideDateTimePicker()
-    setAlarme(date)
-    const labelButton = "Alarme para "+ format(date.getHours())+' : '+ format(date.getMinutes())
-    setDatalabel(labelButton)
     addAlarme(date)
+    setAlarme(date)
+    scheduleNotification(date)
+      .then(() => console.log("notificação agendada com sucesso"))
+      .catch((error) => console.log("O agendamento nao foi registrado.", error))
   };
 
   function format(number){
@@ -64,6 +114,12 @@ export default function RealizarAtividade({route}) {
       return '0'+number
     else
       return number
+  }
+
+  function finalizarTarefa() {
+    Firestore().collection('Atividades').doc(item.id).update({
+      status: true
+    }).then(() => Alert.alert("Tarefa Finalizada!"))
   }
 
   return (
@@ -107,7 +163,7 @@ export default function RealizarAtividade({route}) {
           </TouchableOpacity>
         </View>
         <View style={styles.submitBox}>
-          <Button title='Finalizar Tarefa' style={styles.submit}/>
+          <Button title='Finalizar Tarefa' style={styles.submit} onPress={() => finalizarTarefa()}/>
         </View>
       </View>
     </SafeAreaView>

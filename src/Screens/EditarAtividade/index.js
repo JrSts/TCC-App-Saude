@@ -28,7 +28,30 @@ export default function EditarAtividade({route}) {
   const [quinta, setQuinta] = useState(false)
   const [sexta, setSexta] = useState(false)
   const [sabado, setSabado] = useState(false)
+
+  const [diasDaSemana, setDiasDaSemana] = useState([])
+  const [turnos, setTurnos] = useState([])
   
+  function testeDiasSemana() {
+    let list = diasDaSemana.map(i => {
+      i == 'Domingo' && setDomingo(true)
+      i == 'Segunda' && setSegunda(true) 
+      i == 'Terça' && setTerca(true)
+      i == 'Quarta' && setQuarta(true)
+      i == 'Quinta' && setQuinta(true)
+      i == 'Sexta' && setSexta(true)
+      i == 'Sábado' && setSabado(true)
+    })
+  }
+
+  function testeTurnos() {
+    let list = turnos.map(i => {
+      i == 'Manhã' && setCheckedManha(true)
+      i == 'Tarde' && setCheckedTarde(true) 
+      i == 'Noite' && setCheckedNoite(true)
+    })
+  }
+
   const [nome, setNome] = useState('')
   const [descricao, setDescricao] = useState('')
 
@@ -40,21 +63,18 @@ export default function EditarAtividade({route}) {
         if (doc.id == idTask){
           setNome(doc.data().nome)
           setDescricao(doc.data().descricao)
-          setDomingo(doc.data().diasDaSemana[0])
-          setSegunda(doc.data().diasDaSemana[1])
-          setTerca(doc.data().diasDaSemana[2])
-          setQuarta(doc.data().diasDaSemana[3])
-          setQuinta(doc.data().diasDaSemana[4])
-          setSexta(doc.data().diasDaSemana[5])
-          setSabado(doc.data().diasDaSemana[6])
-          setCheckedManha(doc.data().turnos[0])
-          setCheckedTarde(doc.data().turnos[1])
-          setCheckedNoite(doc.data().turnos[2])
+          setDiasDaSemana(doc.data().diasDaSemana)
+          setTurnos(doc.data().turnos)
         }
       })
     })
     return () => subscriber()
   }, [])
+
+  useEffect(() => {
+    testeDiasSemana()
+    testeTurnos()
+  }, [diasDaSemana, turnos])
 
   return (
     <SafeAreaView style={styles.container}>

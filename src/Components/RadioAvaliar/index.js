@@ -1,11 +1,17 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper'
 import styles from './style'
 import THEME from '../../THEME'
 
-export default function RadioAvaliar() {
+export default function RadioAvaliar(props) {
   const [checked, setChecked] = useState('Muito Difícil')
+  const item = props.item
+
+  useEffect(() => {
+    
+  }, [])
+  
 
   return (
     <View>

@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 5px
+  }
+  
+  .title {	
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .subtitle {	
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .conteudo {
+    font-weight: normal;
+  }
+  
+  .header {
+    text-align: center;
+  }
+  
+  .table {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .contentTable {
+      font-weight: normal
+  }
+  
+  .data {
+    align-items: flex-end;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+            

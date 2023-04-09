@@ -6,7 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 export default function Button(props) {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity style={styles.buttonBox} onPress={() => {props.onPress()}}>
+    <TouchableOpacity 
+      style={styles.buttonBox} 
+      onPress={() => {props.onPress()}}
+    >
       <Text style = {styles.buttonLabel}>
         {props.title}
       </Text>

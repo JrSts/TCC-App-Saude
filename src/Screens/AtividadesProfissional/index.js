@@ -11,6 +11,7 @@ import Firestore from '@react-native-firebase/firestore'
 export default function AtividadesProfissional({route}) {
 
   const [idPaciente, setIdPaciente] = useState('')
+  const [idTask, setIdTask] = useState('')
   const [atividade, setAtividade] = useState([])
   const [loading, setLoading] = useState(true)
   const id = route.params.id
@@ -35,6 +36,7 @@ export default function AtividadesProfissional({route}) {
       .where('idPaciente','==', idPaciente)
       .onSnapshot(querySnapshot => {
         const data = querySnapshot.docs.map(doc => {
+          setIdTask(doc.id)
           return {
             id: doc.id,
             ...doc.data()

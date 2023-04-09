@@ -1,8 +1,9 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style'
 import TitleBar from '../../Components/TitleBar'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 
 export default function ConfigurarAlarme() {
 
@@ -20,8 +21,8 @@ export default function ConfigurarAlarme() {
   const handleConfirm = (time) => {
     setSelectedTime(time);
     hideTimePicker();
-  };
-
+    console.log(selectedTime)
+  }; 
 
   return (
     <SafeAreaView style={styles.container}>

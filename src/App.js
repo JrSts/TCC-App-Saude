@@ -9,13 +9,12 @@ import Firestore from "@react-native-firebase/firestore"
 export default function App() {
   const [user, setUser] = useState(null)
   const [isPaciente, setIsPaciente] = useState(false)
-
   const currentUser = user ? Auth().currentUser.uid : null
 
   useEffect(() => {
     const subscriber = Auth().onAuthStateChanged(setUser)
     return subscriber
-  }, [])
+  }, [user])
 
   useEffect(() => {
     const subscriber = Firestore()
@@ -27,7 +26,7 @@ export default function App() {
       })
     })
     return () => subscriber()
-  }, [])
+  }, [currentUser])
   
   return (   
     <NavigationContainer>    
