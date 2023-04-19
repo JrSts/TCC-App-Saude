@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
 
   subtitle:{
-    top: -25,
     textAlign: "center",
     fontSize: 18
   },

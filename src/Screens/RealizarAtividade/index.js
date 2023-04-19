@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import TitleBar from '../../Components/TitleBar'
 import styles from './style'
 import CaixaLeituraDescrição from '../../Components/CaixaLeituraDescricao'
-import { Ionicons, MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
 import Button from '../../Components/Button'
 import { useNavigation } from '@react-navigation/native'
 import Firestore from '@react-native-firebase/firestore'
@@ -21,7 +21,28 @@ export default function RealizarAtividade({route}) {
 
 // notification
 
- async function scheduleNotification(date) {
+useEffect(() => {
+  return notifee.onForegroundEvent(({type, detail}) => {
+    switch(type){
+      case EventType.DISMISSED:
+        console.log('O usuario descartou a notificacao')
+        break
+      case EventType.ACTION_PRESS:
+        console.log('O clicou na notificacao ', detail.notification)
+        break
+    }
+  })
+},[])
+
+useEffect (() => {
+  return notifee.onBackgroundEvent( async ({type, detail}) => {
+    if (type == EventType.PRESS){
+      console.log('Usuario Pressionou aqui', detail.notification);
+    }
+  })
+},[])
+
+async function scheduleNotification(date) {
    
   const trigger = {
     type: TriggerType.TIMESTAMP,
@@ -32,9 +53,9 @@ export default function RealizarAtividade({route}) {
 
   await notifee.createTriggerNotification(
     {
-      title: 'Alarme',
+      title: `Alarme Atividade ${item.nome}`,
       body: 'Vamos fazer as atividades de hoje?', 
-      android: { channelId }
+      android: { channelId, pressAction: {id: 'default'} }
     }, trigger)
   }
 
@@ -49,27 +70,6 @@ export default function RealizarAtividade({route}) {
     })
     return channelId
   }
-
-  useEffect(() => {
-    return notifee.onForegroundEvent(({type, detail}) => {
-      switch(type){
-        case EventType.DISMISSED:
-          console.log('O usuario descartou a notificacao')
-          break
-        case EventType.ACTION_PRESS:
-          console.log('O clicou na notificacao ', detail.notification)
-          break
-      }
-    })
-  },[])
-
-  useEffect (() => {
-    return notifee.onBackgroundEvent( async ({type, detail}) => {
-      if (type == EventType.PRESS){
-        console.log('Usuario Pressionaou aqui', detail.notification);
-      }
-    })
-  },[])
 
   useEffect(() => {
     const subscriber = Firestore().collection('Atividades')
@@ -143,23 +143,13 @@ export default function RealizarAtividade({route}) {
             mode={'time'}
           />
         </View>
-        <View style={styles.box}>
-          <TouchableOpacity 
-            style={styles.buttons}
-            onPress={() => navigation.navigate('GravarObservacao', {item: item})}
-          >
-            <MaterialCommunityIcons name='message-processing-outline' size={60} style={styles.icons}/>
-            <Text style={styles.buttonLabel}>Fazer Observações</Text>
-          </TouchableOpacity>
-        </View>
         <View style={styles.boxBotton}>
           <TouchableOpacity 
             style={styles.buttons}
-            onPress={() => navigation.navigate('AvaliarPaciente', {item: item})} 
-                       
+            onPress={() => navigation.navigate('Respostas', {item: item})}
           >
-            <AntDesign name='like2' size={60} style={styles.icons}/>
-            <Text style={styles.buttonLabel}>Avaliar o Paciente</Text>
+            <SimpleLineIcons name='control-play' size={60} style={styles.icons}/>
+            <Text style={styles.buttonLabel}>Realizar Atividade</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.submitBox}>

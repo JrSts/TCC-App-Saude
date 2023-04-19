@@ -4,8 +4,6 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
-  Alert,
-  Switch,
   ScrollView,
   
 } from 'react-native'
@@ -16,7 +14,6 @@ import StyleButton from '../Button/style'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Auth from '@react-native-firebase/auth'
 import Firestore, {FirebaseFirestoreTypes} from "@react-native-firebase/firestore"
-import THEME from '../../THEME'
 
 export default function FormSignIn() {
   

@@ -12,7 +12,12 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function EditarAtividade({route}) {
 
+  const [nome, setNome] = useState('')
+  const [descricao, setDescricao] = useState('')
+
   const idTask = route.params.id
+  const idPaciente = route.params.idPaciente
+  console.log(idPaciente)
 
   const [checkedManha, setCheckedManha] = useState(false);
   const [checkedTarde, setCheckedTarde] = useState(false);
@@ -28,10 +33,12 @@ export default function EditarAtividade({route}) {
   const [quinta, setQuinta] = useState(false)
   const [sexta, setSexta] = useState(false)
   const [sabado, setSabado] = useState(false)
+  const [horario, setHorario] = useState('')
 
   const [diasDaSemana, setDiasDaSemana] = useState([])
   const [turnos, setTurnos] = useState([])
-  
+
+
   function testeDiasSemana() {
     let list = diasDaSemana.map(i => {
       i == 'Domingo' && setDomingo(true)
@@ -52,10 +59,48 @@ export default function EditarAtividade({route}) {
     })
   }
 
-  const [nome, setNome] = useState('')
-  const [descricao, setDescricao] = useState('')
+  function preencherTurnos() {
+    let list = []
+    if (checkedManha){
+      list.push('Manhã')
+    }
+    if (checkedTarde){
+      list.push('Tarde')
+    }
+    if (checkedNoite){
+      list.push('Noite')
+    }
+    setTurnos(list)
+  }
 
+  function preencherDiasSemana(){
+    let list = []
+    if(domingo) {
+      list.push('Domingo')
+    } 
+    if(segunda) {
+      list.push('Segunda')
+    } 
+    if(terca) {
+      list.push('Terça')
+    } 
+    if(quarta) {
+      list.push('Quarta')
+    } 
+    if(quinta) {
+      list.push('Quinta')
+    } 
+    if(sexta) {
+      list.push('Sexta')
+    } 
+    if(sabado) {
+      list.push('Sábado')
+    }
+    setDiasDaSemana(list)
+  }
+  
   const navigation = useNavigation()
+  
   useEffect(() => {
     const subscriber = Firestore().collection('Atividades')
     .onSnapshot(querySnapshot => {
@@ -76,12 +121,18 @@ export default function EditarAtividade({route}) {
     testeTurnos()
   }, [diasDaSemana, turnos])
 
+  useEffect(() => {
+    preencherDiasSemana()
+    preencherTurnos()
+  }, [domingo, segunda, terca, quarta, quinta, sexta, sabado, checkedManha, checkedNoite, checkedTarde])
+  
+
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar title='Atividade'/>
       <View style={styles.content}>
         <Text style={styles.subtitle} >
-          Editar Atividades
+          Editar
         </Text>
         <Input title="Nome da Atividade"  onChangeText={setNome} value={nome}/>
         <CaixaTextoDescricao title='Descrição da atividade' onChangeText={setDescricao} value={descricao}/>
@@ -188,13 +239,37 @@ export default function EditarAtividade({route}) {
   )
 
   function updateAtividade(){
-    Firestore().collection('Atividades').doc(idTask).update({
-      nome: nome,
-      descricao: descricao,
-      diasDaSemana: [domingo, segunda, terca, quarta, quinta, sexta, sabado],
-      turnos: [checkedManha, checkedTarde, checkedNoite],
+    Firestore().collection("Atividades").add({
+      nome,
+      descricao,
+      alarme,
+      idPaciente,
+      diasDaSemana,
+      turnos,
+    }).then(res => {
+      for (let i = 0; i < diasDaSemana.length; i++) {
+        for (let j = 0; j < turnos.length; j++) {
+          Firestore().collection("Respostas").add({
+            idAtividade: res.id,
+            observacao,
+            avaliacao,
+            diaDaSemana: diasDaSemana[i],
+            turno: turnos[j],
+            status: false,
+            horario,
+          }).then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso."))
+        }        
+      }
     })
+
+    Firestore()
+      .collection('Respostas')
+      .where('idAtividade', '==', idTask).onSnapshot(query => {query.docs.map( doc => {
+        Firestore().collection('Respostas').doc(doc.id).delete()})
+    })
+    Firestore().collection('Atividades').doc(idTask).delete()
+    
     navigation.goBack()
-    Alert.alert('Atualizar Atividade', 'Atividade Atualizada com sucesso')
   }
 }
+

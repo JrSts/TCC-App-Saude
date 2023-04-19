@@ -7,12 +7,7 @@ import THEME from '../../THEME'
 export default function RadioAvaliar(props) {
   const [checked, setChecked] = useState('Muito Difícil')
   const item = props.item
-
-  useEffect(() => {
-    
-  }, [])
-  
-
+  props.avaliacao = checked  
   return (
     <View>
       <TouchableOpacity onPress={() => {setChecked('Muito Difícil')}} style={styles.linha}>

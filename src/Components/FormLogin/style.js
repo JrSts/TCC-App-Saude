@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 
   containerForm: {
-    flex: 2
+    flex: 5
   },
   
   button: {

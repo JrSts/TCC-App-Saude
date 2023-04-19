@@ -6,6 +6,8 @@ import styles from './style'
 import Auth from '@react-native-firebase/auth'
 import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import Load from '../Load'
+import THEME from '../../THEME'
 
 export default function FormLogin() {
   const [email, setEmail] = useState('');
@@ -49,7 +51,7 @@ export default function FormLogin() {
           isLoading={isLoading} 
           onPress={() => handleLogin()}
         >
-          {isLoading ? <ActivityIndicator />  : <Text style={StyleButton.buttonLabel}>Entrar</Text>}
+          {isLoading ? <Load color={THEME.COLORS.BACKGROUND}/>  : <Text style={StyleButton.buttonLabel}>Entrar</Text>}
         </TouchableOpacity> 
         <TouchableOpacity onPress={() => navigation.navigate('Cadastrar')}>
           <Text style={styles.button}>Não tenho cadastro</Text> 

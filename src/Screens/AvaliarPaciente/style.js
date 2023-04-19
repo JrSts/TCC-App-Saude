@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
 
   subtitle: {
     fontSize: 20,
-    top: -25,
     alignSelf:"center",
     position: "absolute"
   },

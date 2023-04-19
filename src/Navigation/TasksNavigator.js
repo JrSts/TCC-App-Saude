@@ -7,6 +7,7 @@ import GravarObservacao from '../Screens/GravarObservacao'
 import AvaliarPaciente from '../Screens/AvaliarPaciente'
 import Perfil from '../Screens/Perfil'
 import AtualizarPerfil from '../Screens/AtualizarPerfil'
+import Respostas from '../Screens/Respostas'
 
 const Stack = createNativeStackNavigator()
 
@@ -18,6 +19,7 @@ export default function TasksNavigator() {
       <Stack.Screen name='ConfigurarAlarme' component={ConfigurarAlarme} />
       <Stack.Screen name='GravarObservacao' component={GravarObservacao} />
       <Stack.Screen name='AvaliarPaciente' component={AvaliarPaciente} />
+      <Stack.Screen name='Respostas' component={Respostas} />
       <Stack.Screen name='Perfil' component={Perfil} />
       <Stack.Screen name='AtualizarPerfil' component={AtualizarPerfil}/>
     </Stack.Navigator>

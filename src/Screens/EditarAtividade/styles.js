@@ -11,8 +11,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: "3%",
   },
 
-  subtitle:{
-    top: -25,
+  subtitle: {
     textAlign: "center",
     fontSize: 18
   },

@@ -1,4 +1,4 @@
-import { StyleSheet, Platform}from 'react-native'
+import { StyleSheet, Platform} from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     fontSize:20,
-    top: -25,
+    marginTop:15,
     textAlign:"center"
   },
   containerButton: {
@@ -21,6 +21,15 @@ const styles = StyleSheet.create({
     justifyContent:'flex-end',
     bottom: 15,
   },
+  linha: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+
+  label: {
+    fontSize: 18
+  }
 })
 
 export default styles

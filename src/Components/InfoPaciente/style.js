@@ -19,6 +19,16 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 
+  deleteButton: {
+    color: THEME.COLORS.CANCEL,
+  },
+
+  containerButtons:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    marginHorizontal: 30
+  },
+
   img: {
     color: THEME.COLORS.BUTTON,
     paddingVertical: 20,
@@ -27,8 +37,6 @@ const styles = StyleSheet.create({
   
   edit: {
     color: THEME.COLORS.EDIT,
-    right: 30,
-    position: "absolute"
   },
 })
 

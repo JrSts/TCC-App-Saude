@@ -5,12 +5,12 @@ import styles from './style'
 import InfoPerfil from '../../Components/InfoPerfil'
 
 export default function Perfil({route}) {
-  const idPaciente = route.params.id
+  const id = route.params.id
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar title="Perfil"/>
       <View style={styles.content}>
-        <InfoPerfil idPaciente={idPaciente} />
+        <InfoPerfil id={id} />
       </View>
     </SafeAreaView>
   )

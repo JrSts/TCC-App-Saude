@@ -15,7 +15,7 @@ export default function CadastrarAtividade({route}) {
   const [nome, setNome] = useState('')
   const [descricao, setDescricao] = useState('')
   const [observacao, setObservacao] = useState('');
-  const [avaliacao, setAvaliacao] = useState([]);
+  const [avaliacao, setAvaliacao] = useState('');
   const [alarme, setAlarme] = useState('');
   
   const [checkedManha, setCheckedManha] = useState(false);
@@ -30,12 +30,10 @@ export default function CadastrarAtividade({route}) {
   const [sexta, setSexta] = useState(false)
   const [sabado, setSabado] = useState(false)
 
+  const [horario, setHorario] = useState('')
+
   const [diasDaSemana, setDiasDaSemana] = useState([])
   const [turnos, setTurnos] = useState([])
-  const [matriz, setMatriz] = useState([])
-  const [diaDaSemana, setDiaDaSemana] = useState('')
-  const [turno, setTurno] = useState('')
-  const [valor, setValor] = useState('')
 
   function preencherTurnos() {
     let list = []
@@ -49,24 +47,6 @@ export default function CadastrarAtividade({route}) {
       list.push('Noite')
     }
     setTurnos(list)
-  }
-
-  function preencherMatriz() {
-    preencherDiasSemana()
-    preencherTurnos()
-    let diaDaSemana
-    let turno
-    let valor
-    let list = []
-    for (let i = 0; i < diasDaSemana.length; i++) {
-      for (let j = 0; j < turnos.length; j++) {
-        diaDaSemana = diasDaSemana[i]
-        turno = turnos[j]
-        valor = ''
-        list.push({diaDaSemana, turno, valor})
-      }
-    }
-    setMatriz(list)
   }
 
   function preencherDiasSemana(){
@@ -93,11 +73,11 @@ export default function CadastrarAtividade({route}) {
       list.push('Sábado')
     }
     setDiasDaSemana(list)
-    return list.length
   }
 
    useEffect(() => {
-     preencherMatriz()
+    preencherTurnos()
+    preencherDiasSemana()
    }, [domingo, segunda, terca, quarta, quinta, sexta, sabado, checkedManha, checkedTarde, checkedNoite])
 
   const navigation = useNavigation()
@@ -109,15 +89,26 @@ export default function CadastrarAtividade({route}) {
       Firestore().collection("Atividades").add({
         nome,
         descricao,
-        observacao: matriz,
         alarme,
         idPaciente,
-        avaliacao: matriz,
-        diasDaSemana: diasDaSemana,
-        turnos: turnos,
-        status: false,
-      }).then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso."))
-    } catch (error) {
+        diasDaSemana,
+        turnos,
+      }).then(res => {
+        for (let i = 0; i < diasDaSemana.length; i++) {
+          for (let j = 0; j < turnos.length; j++) {
+            Firestore().collection("Respostas").add({
+              idAtividade: res.id,
+              observacao: '',
+              avaliacao: '',
+              diaDaSemana: diasDaSemana[i],
+              turno: turnos[j],
+              status: false,
+              horario: '',
+            }).then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso."))
+          }        
+        }
+      })
+    }catch (error) {
       Alert.alert("Adicionar Atividade", "Atividade não cadastrada. Erro: " + error)
     }finally{
       navigation.goBack()

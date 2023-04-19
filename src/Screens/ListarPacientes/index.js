@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
+import { View, SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert, Modal } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import TitleBar from '../../Components/TitleBar'
 import styles from './style'
@@ -40,18 +40,21 @@ export default function ListarPacientes() {
     const dia = teste.getDate()
 
     const today = new Date()
-    
+    let idade = 0
     if (today.getMonth() <= mes) {
-      setIdade(today.getFullYear() - ano - 1)
+      idade = today.getFullYear() - ano - 1
     } else if (today.getDate() < dia) {
-      setIdade(today.getFullYear() - ano - 1)
+      idade = today.getFullYear() - ano - 1
     } else {
-      setIdade(today.getFullYear() - ano)
+      idade = today.getFullYear() - ano
     }
     return idade
   }
 
   function AddPaciente() {
+
+    
+
     console.log(idProfissional)
     Firestore().collection('Pacientes').doc(idPaciente).update({
       idProfissional: idProfissional
@@ -67,7 +70,6 @@ export default function ListarPacientes() {
       .where('idProfissional','==','')
       .onSnapshot(query => {
         const data = query.docs.map(doc => {
-          getIdade(doc.data().dataNascimento)
           setIdPaciente(doc.id)
           return {
             id: doc.id,
@@ -113,7 +115,7 @@ export default function ListarPacientes() {
           >
               <View>
                 <Text style={styles.name}>{item.nome}</Text>
-                <Text style={styles.idade}>{idade} Anos</Text>
+                <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>
               </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.addser} onPress={() => AddPaciente()}> 
