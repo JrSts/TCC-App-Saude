@@ -5,7 +5,9 @@ import styles from './style';
 import Firestore from '@react-native-firebase/firestore';
 import Auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/native';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import THEME from '../../THEME';
+ 
 export default function ValidarCodigo({route}) {
 
   const navigation = useNavigation()
@@ -52,6 +54,7 @@ function AddPaciente() {
   }
   return (
     <View style={styles.container}>
+        <MaterialCommunityIcons name='account-lock' size={70} color={THEME.COLORS.BACKGROUND}/>
         <Text style={styles.text}>Informe o Código de Segurança do Paciente.</Text>
         <Input 
             title='Código de Segurança' value={chave} onChangeText={setChave}

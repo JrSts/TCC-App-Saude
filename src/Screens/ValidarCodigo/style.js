@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: THEME.COLORS.BUTTON,
     borderRadius:20,
+    paddingBottom: 50
   },
  
   text: {

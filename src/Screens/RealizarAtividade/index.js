@@ -152,9 +152,9 @@ async function scheduleNotification(date) {
             <Text style={styles.buttonLabel}>Realizar Atividade</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.submitBox}>
+        {/* <View style={styles.submitBox}>
           <Button title='Finalizar Tarefa' style={styles.submit} onPress={() => finalizarTarefa()}/>
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   )

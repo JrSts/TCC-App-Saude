@@ -24,7 +24,7 @@ export default function GravarObservacao({route}) {
       status: avaliacao != '' && observacao != '' ? true : false,
       horario: new Date(Date.now())
     })
-    .then(() => Alert.alert('Dados salvos com sucesso!'))
+    .then(() => Alert.alert('Parabens!!!', 'Você conseguiu realizar esta atividade!'))
     .catch((error) => console.log(error))
     navigation.goBack()
   }
