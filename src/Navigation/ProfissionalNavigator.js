@@ -12,6 +12,7 @@ import MeusPacientes from '../Screens/MeusPacientes'
 import AtualizarPerfil from '../Screens/AtualizarPerfil'
 import EditarPaciente from '../Screens/EditarPaciente'
 import PerfilPaciente from '../Screens/PerfilPaciente'
+import ValidarCodigo from '../Screens/ValidarCodigo'
 
 const Stack = createNativeStackNavigator()
 
@@ -29,6 +30,7 @@ export default function ProfissionalNavigator() {
       <Stack.Screen name='EditarAtividade' component={EditarAtividade} />
       <Stack.Screen name='EditarPaciente' component={EditarPaciente} />
       <Stack.Screen name='PerfilPaciente' component={PerfilPaciente} />
+      <Stack.Screen name='ValidarCodigo' component={ValidarCodigo} />
     </Stack.Navigator>
   )
 }

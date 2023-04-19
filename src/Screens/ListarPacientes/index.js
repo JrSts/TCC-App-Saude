@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert, Modal } from 'react-native'
+import { View, SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert, Modal, Pressable } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import TitleBar from '../../Components/TitleBar'
 import styles from './style'
@@ -15,6 +15,7 @@ export default function ListarPacientes() {
   const [idade, setIdade] = useState(0)
   const [idPaciente, setIdPaciente] = useState('')
   const [idProfissional, setIdProfissional] = useState()
+  const [modalVisible, setModalVisible] = useState(false);
   const user = Auth().currentUser.uid
 
   useEffect(() => {
@@ -49,18 +50,6 @@ export default function ListarPacientes() {
       idade = today.getFullYear() - ano
     }
     return idade
-  }
-
-  function AddPaciente() {
-
-    
-
-    console.log(idProfissional)
-    Firestore().collection('Pacientes').doc(idPaciente).update({
-      idProfissional: idProfissional
-    })
-    .then(() => Alert.alert('Paciente adicionado'))
-    .catch((error) => Alert.alert('ops deu erro: ', error))
   }
 
   useEffect(() => {
@@ -106,19 +95,19 @@ export default function ListarPacientes() {
     const navigation = useNavigation()
     return (
       <View style={styles.containerTask}>
-        <TouchableOpacity onPress={() => navigation.navigate('Perfil' , {id: idPaciente})}>
+        <TouchableOpacity onPress={() => Alert.alert('Atenção!', 'Adicione o paciente para ter acesso aos demais dados pessoais dele.')}>
           <FontAwesome name='user-circle-o' size={50} style={styles.avatar}/>
         </TouchableOpacity>
         <View style={styles.infoContainer}>
           <TouchableOpacity 
-            onPress={() => navigation.navigate('AtividadesProfissional', {id: item.id})}
+            onPress={() => Alert.alert('Atenção!', 'Adicione o paciente para ter acesso aos demais dados pessoais dele.')}
           >
               <View>
                 <Text style={styles.name}>{item.nome}</Text>
                 <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>
               </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.addser} onPress={() => AddPaciente()}> 
+          <TouchableOpacity style={styles.addser} onPress={() => navigation.navigate('ValidarCodigo', {id: item.id})}> 
             <FontAwesome5 name='user-plus' size={45} style={styles.avatar}/>
           </TouchableOpacity>
         </View>

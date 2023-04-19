@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
 
   buttonLabel: {
     color: THEME.COLORS.BACKGROUND,
-    fontSize: 20
+    fontSize: 20,
+    fontWeight: "bold"
   }
 })
 

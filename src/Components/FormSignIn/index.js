@@ -31,6 +31,7 @@ export default function FormSignIn() {
   const [CRFono, setCRFono] = useState('')
   const [anotacoes, setAnotacoes] = useState('')
   const [lembrete, setLembrete] = useState('')
+  const [codigoSeguranca, setCodigoSeguranca] = useState()
   const idProfissional = ''
   
   const navigation = useNavigation()
@@ -92,6 +93,12 @@ export default function FormSignIn() {
     </View>
   )
 
+  function gerarCodigo() {
+    let codigo = Math.random()*1000000
+    codigo = Math.ceil(codigo)
+    return codigo
+  }
+
   function createUser() {
     setIsLoading(true)
     Auth()
@@ -111,7 +118,8 @@ export default function FormSignIn() {
             email,
             anotacoes,
             lembrete,
-            idProfissional
+            idProfissional,
+            codigoSeguranca: gerarCodigo()
           })
           .then(() => console.log("tudo certo"))
           .catch((error) => console.log("Erro => ", error))
