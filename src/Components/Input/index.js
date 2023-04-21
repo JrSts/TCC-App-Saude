@@ -6,7 +6,7 @@ export default function Input(props) {
   return (
       <TextInput 
         placeholder= {props.title}
-        style = {styles.input}
+        style = {[styles.input, props.style]}
         onChangeText={props.onChangeText}
         value={props.value}
       />

@@ -16,6 +16,7 @@ export default function ListarPacientes() {
   const [idPaciente, setIdPaciente] = useState('')
   const [idProfissional, setIdProfissional] = useState()
   const [modalVisible, setModalVisible] = useState(false);
+  const [busca, setBusca] = useState('')
   const user = Auth().currentUser.uid
 
   useEffect(() => {
@@ -65,18 +66,41 @@ export default function ListarPacientes() {
             ...doc.data()
           }
         })
-        setPacienteNaoCadastrado(data)
+        let listaOrdenada = ordenarLista(data)
+        setPacienteNaoCadastrado(listaOrdenada)
         setLoading(false)
       }) 
       
     return () => subscriber();
   }, []);
 
+  function ordenarLista(lista){
+    let aux = lista
+    aux.sort((a, b) => a.nome > b.nome ? 1 : b.nome > a.nome ? -1 : 0)
+    return aux
+  }
+
+  useEffect(() => {
+    if (busca == '' || busca == null) {
+      setPacienteNaoCadastrado(pacienteNaoCadastrado)
+    } else {
+      setList(
+        pacienteNaoCadastrado.filter(item => {
+          if (item.nome.toLowerCase().indexOf(busca.toLowerCase()) > -1) {
+            return true
+          } else {
+            return false
+          }
+        })
+      )
+    }
+  }, [busca])
+
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar title="Pacientes"/>
       <View style={styles.content}>
-        <Input title='Buscar Pacientes'/>
+        <Input title='Buscar Pacientes' value={busca} onChangeText={setBusca}/>
           <View>
             { loading ? <ActivityIndicator color={THEME.COLORS.BUTTON} style={{marginTop: 230}}/> : 
               <FlatList 
@@ -98,11 +122,24 @@ export default function ListarPacientes() {
         <TouchableOpacity onPress={() => Alert.alert('Atenção!', 'Adicione o paciente para ter acesso aos demais dados pessoais dele.')}>
           <FontAwesome name='user-circle-o' size={50} style={styles.avatar}/>
         </TouchableOpacity>
-        <View style={styles.infoContainer}>
+
+        <TouchableOpacity style={styles.infoButton}>
+          <View style={styles.infoContainer}>
+            <Text style={styles.name}>{item.nome}</Text>
+            <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.addUser} onPress={() => navigation.navigate('ValidarCodigo', {id: item.id})}> 
+          <FontAwesome5 name='user-plus' size={45} style={styles.avatar}/>
+        </TouchableOpacity>
+
+
+
+        {/* <View style={styles.infoContainer}>
           <TouchableOpacity 
             onPress={() => Alert.alert('Atenção!', 'Adicione o paciente para ter acesso aos demais dados pessoais dele.')}
           >
-              <View>
+              <View style={styles.}>
                 <Text style={styles.name}>{item.nome}</Text>
                 <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>
               </View>
@@ -110,7 +147,7 @@ export default function ListarPacientes() {
           <TouchableOpacity style={styles.addser} onPress={() => navigation.navigate('ValidarCodigo', {id: item.id})}> 
             <FontAwesome5 name='user-plus' size={45} style={styles.avatar}/>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     )
   }

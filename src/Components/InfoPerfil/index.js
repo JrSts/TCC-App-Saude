@@ -10,7 +10,7 @@ import THEME from '../../THEME'
 
 export default function InfoPerfil() {
 
-  const [isPaciente, setIsPaciente] = useState(false)
+  const [isPaciente, setIsPaciente] = useState(null)
   const [data, setData] = useState({})
   const [idade, setIdade] = useState(0)
   const [id, setId] = useState('')
@@ -25,29 +25,30 @@ export default function InfoPerfil() {
     Auth().signOut()
   }
 
-  function getIdade(nascimento){
-    let anoString = nascimento.substring(6,10)
-    let mesString = nascimento.substring(3,5)
-    let diaString = nascimento.substring(0,2)
-    let data = anoString+'-'+mesString+'-'+diaString
+  // function getIdade(nascimento){
+  //   console.log(nascimento)
+  //   let anoString = nascimento.substring(6,10)
+  //   let mesString = nascimento.substring(3,5)
+  //   let diaString = nascimento.substring(0,2)
+  //   let data = anoString+'-'+mesString+'-'+diaString
 
-    let teste = new Date(data)
+  //   let teste = new Date(data)
 
-    const ano = teste.getFullYear()
-    const mes = teste.getMonth()
-    const dia = teste.getDate()
+  //   const ano = teste.getFullYear()
+  //   const mes = teste.getMonth()
+  //   const dia = teste.getDate()
 
-    const today = new Date()
-    let idade = 0
-    if (today.getMonth() <= mes) {
-      idade = today.getFullYear() - ano - 1
-    } else if (today.getDate() < dia) {
-      idade = today.getFullYear() - ano - 1
-    } else {
-      idade = today.getFullYear() - ano
-    }
-    return idade
-  }
+  //   const today = new Date()
+  //   let idade = 0
+  //   if (today.getMonth() <= mes) {
+  //     idade = today.getFullYear() - ano - 1
+  //   } else if (today.getDate() < dia) {
+  //     idade = today.getFullYear() - ano - 1
+  //   } else {
+  //     idade = today.getFullYear() - ano
+  //   }
+  //   return idade
+  // }
 
   useEffect(() => {
     setIsLoading(true)
@@ -58,14 +59,13 @@ export default function InfoPerfil() {
             setIsPaciente(false)
             setId(doc.id)
             setData(doc.data())
-            getIdade(doc.data().dataNascimento)
             return data
           }
         })
-        setIsLoading(false)
       })
+      setIsLoading(false)
     return () => subscriber()
-  })
+  }, [])
 
   useEffect(() => {
     setIsLoading(true)
@@ -79,10 +79,10 @@ export default function InfoPerfil() {
           return data
         } 
       })
-      setIsLoading(false)
     }))
+    setIsLoading(false)
     return () => subscriber()
-  })
+  }, [])
  
 
   return (
@@ -100,24 +100,43 @@ export default function InfoPerfil() {
       </View>
       <FontAwesome name='user-circle-o' style={styles.img} size={200}/>
       { isPaciente ? 
+        <InfoPaciente />
+      :
+        <InfoProfissional />
+      }
+    </View>
+  )
+
+  function InfoPaciente(){
+    return(
+      isLoading ? 
+        <Load />
+      :
         <View>
           <Text style={styles.name}>{data.nome}</Text>
-          <Text style={styles.desc}>idade {getIdade(doc.data().dataNascimento)} anos</Text>
+          <Text style={styles.desc}>Data de Nascimento {data.dataNascimento}</Text>
           <Text style={styles.desc}>Hipótese {data.hipotese}</Text>
           <Text style={styles.desc}>Celular {data.phone}</Text>
           <Text style={styles.desc}>E-mail {data.email}</Text>
+          <Text style={styles.codigo}>Código de Segurança {data.codigoSeguranca}</Text>
         </View>
+    )
+  }
+
+  function InfoProfissional() {
+    return (
+      isLoading ? 
+      <Load />
       :
-        <View>
+      <View>
           <Text style={styles.name}>{data.nome}</Text>
           <Text style={styles.desc}>Fonoaudiólogo(a)</Text>
           <Text style={styles.desc}>CRFono {data.CRFono}</Text>
           <Text style={styles.desc}>Celular {data.phone}</Text>
           <Text style={styles.desc}>E-mail {data.email}</Text>
         </View>
-      }
-    </View>
-  )
+    )
+  }
 }
 
 

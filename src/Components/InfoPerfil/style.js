@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     justifyContent:"space-between",
     marginHorizontal: 30
+  },
+
+  codigo: {
+    marginTop: 60,
+    fontWeight: "bold",
+    fontSize: 22,
+    textAlign: "center"
   }
 })
 

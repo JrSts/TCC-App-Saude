@@ -19,11 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.COLORS.INPUT,
     alignItems:"center",
     borderRadius: 20,
-    marginBottom:10,
-  },
-
-  buttomDownload:{
-    paddingLeft:'45%',
+    marginBottom: 10,
   },
 
   avatar:{

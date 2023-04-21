@@ -5,7 +5,7 @@ import styles from './style'
 import Input from '../../Components/Input'
 import ButtonAddPaciente from '../../Components/ButtonAddPaciente'
 import THEME from '../../THEME'
-import { FontAwesome, FontAwesome5} from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import Auth from '@react-native-firebase/auth'
 import Firestore from '@react-native-firebase/firestore'
@@ -14,11 +14,13 @@ import Firestore from '@react-native-firebase/firestore'
 export default function MeusPacientes() {
 
   const [pacienteCadastrado, setPacienteCadastrado] = useState([])
+  const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
   const [idPaciente, setIdPaciente] = useState('')
   const [idProfissional, setIdProfissional] = useState('')
   const [profissional, setProfissional] = useState({})
   const [paciente, setPaciente] = useState({})
+  const [busca, setBusca] = useState('')
 
   const user = Auth().currentUser.uid
 
@@ -67,6 +69,29 @@ export default function MeusPacientes() {
     return idade
   }
 
+  function ordenarLista(lista){
+    let aux = lista
+    aux.sort((a, b) => a.nome > b.nome ? 1 : b.nome > a.nome ? -1 : 0)
+    return aux
+  }
+
+  useEffect(() => {
+    if (busca == '' || busca == null) {
+      setPacienteCadastrado(pacienteCadastrado)
+    } else {
+      setList(
+        pacienteCadastrado.filter(item => {
+          if (item.nome.toLowerCase().indexOf(busca.toLowerCase()) > -1) {
+            return true
+          } else {
+            return false
+          }
+        })
+      )
+    }
+  }, [busca])
+
+
   useEffect(() => {
     Firestore()
     .collection('Profissional')
@@ -106,7 +131,9 @@ export default function MeusPacientes() {
             ...doc.data()
           }
         })
-        setPacienteCadastrado(data)
+        let listaOrdenada = ordenarLista(data)
+        setPacienteCadastrado(listaOrdenada)
+        setList(listaOrdenada)
       }) 
     return () => subscriber();
   }, [idProfissional]);
@@ -115,11 +142,17 @@ export default function MeusPacientes() {
     <SafeAreaView style={styles.container}>
       <TitleBar title="Pacientes"/>
       <View style={styles.content}>
-        <Input title='Meus Pacientes'/>
+        <View style={styles.containerSearch}>
+          <Input 
+            title='Meus Pacientes' 
+            value={busca} 
+            onChangeText={(text) => setBusca(text)} 
+          />
+        </View>
           <View>
             { loading ? <ActivityIndicator color={THEME.COLORS.BUTTON} style={{marginTop: 230}}/> : 
               <FlatList 
-              data={pacienteCadastrado}
+              data={busca != '' ? list : pacienteCadastrado}
               renderItem={({item}) => {return <ItemPaciente item={item} />}}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
