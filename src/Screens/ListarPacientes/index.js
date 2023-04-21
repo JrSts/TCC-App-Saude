@@ -17,6 +17,8 @@ export default function ListarPacientes() {
   const [idProfissional, setIdProfissional] = useState()
   const [modalVisible, setModalVisible] = useState(false);
   const [busca, setBusca] = useState('')
+  const [list, setList] = useState()
+
   const user = Auth().currentUser.uid
 
   useEffect(() => {
@@ -104,7 +106,7 @@ export default function ListarPacientes() {
           <View>
             { loading ? <ActivityIndicator color={THEME.COLORS.BUTTON} style={{marginTop: 230}}/> : 
               <FlatList 
-                data={pacienteNaoCadastrado}
+                data={busca ? list :pacienteNaoCadastrado}
                 renderItem={({item}) => {return <ItemPaciente item={item} />}}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
@@ -124,7 +126,7 @@ export default function ListarPacientes() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.infoButton}>
-          <View style={styles.infoContainer}>
+          <View>
             <Text style={styles.name}>{item.nome}</Text>
             <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>
           </View>
@@ -132,22 +134,6 @@ export default function ListarPacientes() {
         <TouchableOpacity style={styles.addUser} onPress={() => navigation.navigate('ValidarCodigo', {id: item.id})}> 
           <FontAwesome5 name='user-plus' size={45} style={styles.avatar}/>
         </TouchableOpacity>
-
-
-
-        {/* <View style={styles.infoContainer}>
-          <TouchableOpacity 
-            onPress={() => Alert.alert('Atenção!', 'Adicione o paciente para ter acesso aos demais dados pessoais dele.')}
-          >
-              <View style={styles.}>
-                <Text style={styles.name}>{item.nome}</Text>
-                <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.addser} onPress={() => navigation.navigate('ValidarCodigo', {id: item.id})}> 
-            <FontAwesome5 name='user-plus' size={45} style={styles.avatar}/>
-          </TouchableOpacity>
-        </View> */}
       </View>
     )
   }
