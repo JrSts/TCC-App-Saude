@@ -4,7 +4,6 @@ import TitleBar from '../../Components/TitleBar'
 import styles from './style'
 import CaixaLeituraDescrição from '../../Components/CaixaLeituraDescricao'
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
-import Button from '../../Components/Button'
 import { useNavigation } from '@react-navigation/native'
 import Firestore from '@react-native-firebase/firestore'
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -14,7 +13,7 @@ export default function RealizarAtividade({route}) {
 
   const item = route.params.item
   const [alarme, setAlarme] = useState('')
-  const [dataLabel, setDatalabel] = useState('Cadastrar Alarme')
+  const [dataLabel, setDatalabel] = useState('Cadastrar Notificação')
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false)
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation()
@@ -26,9 +25,11 @@ useEffect(() => {
     switch(type){
       case EventType.DISMISSED:
         console.log('O usuario descartou a notificacao')
+        setDatalabel('Cadastrar Notificação')
         break
       case EventType.ACTION_PRESS:
         console.log('O clicou na notificacao ', detail.notification)
+        setDatalabel('Cadastrar Notificação')
         break
     }
   })
@@ -38,6 +39,7 @@ useEffect (() => {
   return notifee.onBackgroundEvent( async ({type, detail}) => {
     if (type == EventType.PRESS){
       console.log('Usuario Pressionou aqui', detail.notification);
+      setDatalabel('Cadastrar Notificação')
     }
   })
 },[])
@@ -53,8 +55,8 @@ async function scheduleNotification(date) {
 
   await notifee.createTriggerNotification(
     {
-      title: `Alarme Atividade ${item.nome}`,
-      body: 'Vamos fazer as atividades de hoje?', 
+      title: `Atividade ${item.nome}`,
+      body: 'A notificação foi agendada para este horário, vamos praticar?', 
       android: { channelId, pressAction: {id: 'default'} }
     }, trigger)
   }
@@ -104,6 +106,7 @@ async function scheduleNotification(date) {
     hideDateTimePicker()
     addAlarme(date)
     setAlarme(date)
+    setDatalabel(`Horário de hoje: ${date.getHours()} : ${date.getMinutes()}`)
     scheduleNotification(date)
       .then(() => console.log("notificação agendada com sucesso"))
       .catch((error) => console.log("O agendamento nao foi registrado.", error))
@@ -127,7 +130,7 @@ async function scheduleNotification(date) {
       <TitleBar title='Atividade' />      
       <View style={styles.content}>
         <Text style={styles.subtitle}>{item.nome}</Text>
-        <CaixaLeituraDescrição msg='Testando 123'/>
+        <CaixaLeituraDescrição msg={item.descricao}/>
         <View style={styles.box}>
           <TouchableOpacity 
             style={styles.buttons} 
@@ -152,9 +155,6 @@ async function scheduleNotification(date) {
             <Text style={styles.buttonLabel}>Realizar Atividade</Text>
           </TouchableOpacity>
         </View>
-        {/* <View style={styles.submitBox}>
-          <Button title='Finalizar Tarefa' style={styles.submit} onPress={() => finalizarTarefa()}/>
-        </View> */}
       </View>
     </SafeAreaView>
   )

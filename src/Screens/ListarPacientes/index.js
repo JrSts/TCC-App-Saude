@@ -121,11 +121,14 @@ export default function ListarPacientes() {
     const navigation = useNavigation()
     return (
       <View style={styles.containerTask}>
-        <TouchableOpacity onPress={() => Alert.alert('Atenção!', 'Adicione o paciente para ter acesso aos demais dados pessoais dele.')}>
+        <TouchableOpacity onPress={() => Alert.alert('Atenção!', 'Adicione ' + item.nome + ' para ter acesso aos demais dados pessoais dele.')}>
           <FontAwesome name='user-circle-o' size={50} style={styles.avatar}/>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.infoButton}>
+        <TouchableOpacity 
+          style={styles.infoButton}
+          onPress={() => Alert.alert('Atenção!', 'Adicione ' + item.nome + ' para ter acesso ao programa dele.')}
+        >
           <View>
             <Text style={styles.name}>{item.nome}</Text>
             <Text style={styles.idade}>{getIdade(item.dataNascimento)} Anos</Text>

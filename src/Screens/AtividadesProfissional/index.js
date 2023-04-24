@@ -42,6 +42,90 @@ export default function AtividadesProfissional({route}) {
     return date.getHours() + ' : ' + date.getMinutes()
   }
 
+  function ordenarLista(lista){
+
+    let vetor = lista
+
+    for (let i = 0; i < vetor.length; i++){
+        switch (vetor[i].diaDaSemana) {
+            case 'Domingo' :
+                vetor[i].diaDaSemana = 0;
+                break;
+            case 'Segunda' :
+                vetor[i].diaDaSemana = 1;
+                break;
+            case 'Terça' :
+                vetor[i].diaDaSemana = 2;
+                break;
+            case 'Quarta' :
+                vetor[i].diaDaSemana = 3;
+                break;
+            case 'Quinta' :
+                vetor[i].diaDaSemana = 4;
+                break;
+            case 'Sexta' :
+                vetor[i].diaDaSemana = 5;
+                break;
+            case 'Sábado' :
+                vetor[i].diaDaSemana = 6;
+                break;
+        }
+        switch (vetor[i].turno) {
+            case  'Manhã':
+                vetor[i].turno = 0;
+                break;
+            case  'Tarde':
+                vetor[i].turno = 1;
+                break;
+            case  'Noite':
+                vetor[i].turno = 2;
+                break;
+        }
+    }
+
+    let vetorOrdenado = vetor.sort((a, b) => 
+      a.diaDaSemana > b.diaDaSemana ? 1 : a.diaDaSemana < b.diaDaSemana ? -1 : 0
+    )
+
+    for (let i = 0; i < vetorOrdenado.length; i++){
+        switch (vetorOrdenado[i].diaDaSemana) {
+            case 0 :
+                vetorOrdenado[i].diaDaSemana = 'Domingo'
+                break
+            case 1 :
+                vetorOrdenado[i].diaDaSemana = 'Segunda'
+                break
+            case 2 :
+                vetorOrdenado[i].diaDaSemana = 'Terça'
+                break
+            case 3 :
+                vetorOrdenado[i].diaDaSemana = 'Quarta'
+                break
+            case 4 :
+                vetorOrdenado[i].diaDaSemana = 'Quinta'
+                break
+            case 5:
+                vetorOrdenado[i].diaDaSemana = 'Sexta'
+                break
+            case 6 :
+                vetorOrdenado[i].diaDaSemana = 'Sábado'
+                break
+        }
+        switch (vetorOrdenado[i].turno){
+            case 0:
+                vetorOrdenado[i].turno = 'Manhã'
+                break
+            case 1:
+                vetorOrdenado[i].turno = 'Tarde'
+                break
+            case 2:
+                vetorOrdenado[i].turno = 'Noite'
+                break
+        }
+    }
+    return vetorOrdenado
+  }
+
   useEffect(() => {
     let aux = []
     const subscriber = Firestore().collection('Respostas')
@@ -59,7 +143,8 @@ export default function AtividadesProfissional({route}) {
 
           })
         }
-        setRespostas(aux)
+        let auxOrdenado = ordenarLista(aux)
+        setRespostas(auxOrdenado)
       }
     }))
     return () => subscriber()
@@ -162,7 +247,6 @@ export default function AtividadesProfissional({route}) {
   async function gerarRelatorio() {
 
     function criarBody(ativid) {
-      console.log(ativid.id)
       let body = ''
   
       let lista = respostas.filter(resposta => resposta.idAtividade == ativid.id)
@@ -170,20 +254,20 @@ export default function AtividadesProfissional({route}) {
       for (let i = 0; i < lista.length; i++) {
         body += `
         <tr>
-          <th rowspan='3' style='paddingHorizontal: 5px'>
+          <th rowspan='3'>
             ${lista[i].diaDaSemana} de ${lista[i].turno}
           </th>
-          <td style='padding-horizontal: 5px'>
+          <td style='padding-left:10px; padding-top:5px; padding-bottom:5px;'>
             ${lista[i].horario == '' ? 'SEM REGISTRO DE HORÁRIO' 
             : formatDataAtual(lista[i].horario.toDate()) + ' às ' + formatHora(lista[i].horario.toDate())
           }
           </td>
         </tr>
         <tr>
-          <td style='paddingHorizontal: 5px'>${lista[i].observacao == '' ? 'SEM REGISTRO DE OBSERVAÇÃO' : lista[i].observacao}</td>
+          <td style='padding-left:10px; padding-top:5px; padding-bottom:5px;'>${lista[i].observacao == '' ? 'SEM REGISTRO DE OBSERVAÇÃO' : lista[i].observacao}</td>
         </tr>
         <tr>
-          <td style='paddingHorizontal: 5px'>${lista[i].avaliacao == '' ? 'SEM REGISTRO DE AVALIAÇÃO' : lista[i].avaliacao}</td>
+          <td style='padding-left:10px; padding-top:5px; padding-bottom:5px;'>${lista[i].avaliacao == '' ? 'SEM REGISTRO DE AVALIAÇÃO' : lista[i].avaliacao}</td>
         </tr>
         `
       }
@@ -207,7 +291,7 @@ export default function AtividadesProfissional({route}) {
           </td>
         </tr>
         <tr>
-          <td>
+          <td> 
             <h5 style='margin: 5px'>Descrição:
               <span style='font-weight: normal;'>
                 ${ativid[i].descricao}
@@ -226,9 +310,6 @@ export default function AtividadesProfissional({route}) {
 
     const html = `
     <html>
-    <style>
-      ${htmlStyles}
-    </style>
     <body>
       <h5 style='display:flex; justify-content: flex-end; font-weight: normal'>
         Gerado em ${formatDataAtual(new Date(Date.now()))}
@@ -324,44 +405,6 @@ export default function AtividadesProfissional({route}) {
     </body>
   </html>
   `
-
-  const htmlStyles = `{
-    margin: 0;
-    padding: 5px
-  }
-  
-  .title {	
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .subtitle {	
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .conteudo {
-    font-weight: normal;
-  }
-  
-  .header {
-    text-align: center;
-  }
-  
-  .table {
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-  
-  .contentTable {
-      font-weight: normal
-  }
-  
-  .data {
-    align-items: flex-end;
-  }`
 
     try {
       const file = await printToFileAsync({
