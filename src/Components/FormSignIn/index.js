@@ -13,7 +13,7 @@ import styles from './style'
 import StyleButton from '../Button/style'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Auth from '@react-native-firebase/auth'
-import Firestore, {FirebaseFirestoreTypes} from "@react-native-firebase/firestore"
+import Firestore from "@react-native-firebase/firestore"
 
 export default function FormSignIn() {
   
@@ -31,7 +31,7 @@ export default function FormSignIn() {
   const [CRFono, setCRFono] = useState('')
   const [anotacoes, setAnotacoes] = useState('')
   const [lembrete, setLembrete] = useState('')
-  const [codigoSeguranca, setCodigoSeguranca] = useState()
+  //const [codigoSeguranca, setCodigoSeguranca] = useState()
   const idProfissional = ''
   
   const navigation = useNavigation()

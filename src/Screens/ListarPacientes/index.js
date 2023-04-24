@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert, Modal, Pressable } from 'react-native'
+import { View, SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import TitleBar from '../../Components/TitleBar'
 import styles from './style'
@@ -15,7 +15,6 @@ export default function ListarPacientes() {
   const [idade, setIdade] = useState(0)
   const [idPaciente, setIdPaciente] = useState('')
   const [idProfissional, setIdProfissional] = useState()
-  const [modalVisible, setModalVisible] = useState(false);
   const [busca, setBusca] = useState('')
   const [list, setList] = useState()
 

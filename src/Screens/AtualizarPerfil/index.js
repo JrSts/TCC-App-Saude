@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ActivityIndicator, TextInput, ScrollView, Alert, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, ScrollView, Alert, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import StyleInput from '../../Components/Input/style'
 import StyleButton from '../../Components/Button/style'

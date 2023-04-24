@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './style'
 import Icon from '@expo/vector-icons/FontAwesome'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import Auth from '@react-native-firebase/auth'
 
 export default function TitleBar(props) {

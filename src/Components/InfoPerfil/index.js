@@ -25,31 +25,6 @@ export default function InfoPerfil() {
     Auth().signOut()
   }
 
-  // function getIdade(nascimento){
-  //   console.log(nascimento)
-  //   let anoString = nascimento.substring(6,10)
-  //   let mesString = nascimento.substring(3,5)
-  //   let diaString = nascimento.substring(0,2)
-  //   let data = anoString+'-'+mesString+'-'+diaString
-
-  //   let teste = new Date(data)
-
-  //   const ano = teste.getFullYear()
-  //   const mes = teste.getMonth()
-  //   const dia = teste.getDate()
-
-  //   const today = new Date()
-  //   let idade = 0
-  //   if (today.getMonth() <= mes) {
-  //     idade = today.getFullYear() - ano - 1
-  //   } else if (today.getDate() < dia) {
-  //     idade = today.getFullYear() - ano - 1
-  //   } else {
-  //     idade = today.getFullYear() - ano
-  //   }
-  //   return idade
-  // }
-
   useEffect(() => {
     setIsLoading(true)
     const subscriber = Firestore().collection('Profissional')

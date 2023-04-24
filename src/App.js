@@ -5,13 +5,11 @@ import Paciente from '../src/Navigation/BottomTabs'
 import { NavigationContainer } from '@react-navigation/native'
 import Auth from "@react-native-firebase/auth"
 import Firestore from "@react-native-firebase/firestore"
-import Load from './Components/Load'
-import THEME from './THEME'
+
 
 export default function App() {
   const [user, setUser] = useState(null)
   const [isPaciente, setIsPaciente] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
   const currentUser = user ? Auth().currentUser.uid : null
 
   useEffect(() => {

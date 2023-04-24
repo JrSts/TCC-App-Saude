@@ -3,7 +3,6 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ListarPacientes from '../Screens/ListarPacientes'
 import Perfil from '../Screens/Perfil'
-import CadastrarPaciente from '../Screens/CadastrarPaciente'
 import CadastrarLembrete from '../Screens/CadastrarLembrete'
 import AtividadesProfissional from '../Screens/AtividadesProfissional'
 import CadastrarAtividade from '../Screens/CadastrarAtividade'
@@ -23,7 +22,6 @@ export default function ProfissionalNavigator() {
       <Stack.Screen name='ListarPacientes' component={ListarPacientes}/>
       <Stack.Screen name='AtualizarPerfil' component={AtualizarPerfil}/>
       <Stack.Screen name='Perfil' component={Perfil}/>
-      <Stack.Screen name='CadastrarPaciente' component={CadastrarPaciente}/>
       <Stack.Screen name='CadastrarLembrete' component={CadastrarLembrete}/>
       <Stack.Screen name='AtividadesProfissional' component={AtividadesProfissional}/>
       <Stack.Screen name='CadastrarAtividade' component={CadastrarAtividade}/>

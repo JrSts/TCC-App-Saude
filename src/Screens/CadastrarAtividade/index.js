@@ -94,6 +94,7 @@ export default function CadastrarAtividade({route}) {
         diasDaSemana,
         turnos,
       }).then(res => {
+        Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso.")
         for (let i = 0; i < diasDaSemana.length; i++) {
           for (let j = 0; j < turnos.length; j++) {
             Firestore().collection("Respostas").add({
@@ -104,7 +105,7 @@ export default function CadastrarAtividade({route}) {
               turno: turnos[j],
               status: false,
               horario: '',
-            }).then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso."))
+            }).then(() => console.log('ok'))
           }        
         }
       })

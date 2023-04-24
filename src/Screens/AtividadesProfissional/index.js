@@ -1,14 +1,14 @@
-import { View, TouchableOpacity, SafeAreaView, FlatList, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import { View, TouchableOpacity, SafeAreaView, FlatList } from 'react-native'
 import styles from './style'
 import TitleBar from '../../Components/TitleBar'
-import Icon from '@expo/vector-icons/FontAwesome5'
 import AtividadeProfissional from '../../Components/AtividadeProfissional'
-import THEME from '../../THEME'
 import ButtonsAtividadesLembretes from '../../Components/ButtonsAtividadesLembretes'
-import Firestore from '@react-native-firebase/firestore'
+import THEME from '../../THEME'
+import Icon from '@expo/vector-icons/FontAwesome5'
 import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
+import Firestore from '@react-native-firebase/firestore'
 
 export default function AtividadesProfissional({route}) {
 

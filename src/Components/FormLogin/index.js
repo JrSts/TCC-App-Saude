@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View , ActivityIndicator, Alert} from 'react-native'
+import { Text, TouchableOpacity, View, Alert} from 'react-native'
 import React, { useState } from 'react'
 import StyleButton from '../../Components/Button/style'
 import StyleInput from '../../Components/Input/style'

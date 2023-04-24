@@ -247,6 +247,7 @@ export default function EditarAtividade({route}) {
       diasDaSemana,
       turnos,
     }).then(res => {
+      Alert.alert("Editar Atividade", "Atividade editada com sucesso.")
       for (let i = 0; i < diasDaSemana.length; i++) {
         for (let j = 0; j < turnos.length; j++) {
           Firestore().collection("Respostas").add({
@@ -257,7 +258,7 @@ export default function EditarAtividade({route}) {
             turno: turnos[j],
             status: false,
             horario,
-          }).then(() => Alert.alert("Adicionar Atividade", "Atividade cadastrada com sucesso."))
+          }).then(() => console.log('Ok'))
         }        
       }
     })

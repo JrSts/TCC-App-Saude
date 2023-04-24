@@ -1,11 +1,10 @@
-import { View, Text, TouchableOpacity, SafeAreaView, Alert } from 'react-native'
+import { View,  SafeAreaView, FlatList} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import styles from './style'
 import TitleBar from '../../Components/TitleBar'
 import AtividadePaciente from '../../Components/AtividadePaciente'
 import Firestore from '@react-native-firebase/firestore'
 import Load from '../../Components/Load'
-import { FlatList } from 'react-native-gesture-handler'
 import Auth from '@react-native-firebase/auth'
 
 
