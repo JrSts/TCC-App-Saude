@@ -46,83 +46,9 @@ export default function AtividadesProfissional({route}) {
 
     let vetor = lista
 
-    for (let i = 0; i < vetor.length; i++){
-        switch (vetor[i].diaDaSemana) {
-            case 'Domingo' :
-                vetor[i].diaDaSemana = 0;
-                break;
-            case 'Segunda' :
-                vetor[i].diaDaSemana = 1;
-                break;
-            case 'Terça' :
-                vetor[i].diaDaSemana = 2;
-                break;
-            case 'Quarta' :
-                vetor[i].diaDaSemana = 3;
-                break;
-            case 'Quinta' :
-                vetor[i].diaDaSemana = 4;
-                break;
-            case 'Sexta' :
-                vetor[i].diaDaSemana = 5;
-                break;
-            case 'Sábado' :
-                vetor[i].diaDaSemana = 6;
-                break;
-        }
-        switch (vetor[i].turno) {
-            case  'Manhã':
-                vetor[i].turno = 0;
-                break;
-            case  'Tarde':
-                vetor[i].turno = 1;
-                break;
-            case  'Noite':
-                vetor[i].turno = 2;
-                break;
-        }
-    }
-
     let vetorOrdenado = vetor.sort((a, b) => 
-      a.diaDaSemana > b.diaDaSemana ? 1 : a.diaDaSemana < b.diaDaSemana ? -1 : 0
+      a.hash > b.hash ? 1 : a.hash < b.hash ? -1 : 0
     )
-
-    for (let i = 0; i < vetorOrdenado.length; i++){
-        switch (vetorOrdenado[i].diaDaSemana) {
-            case 0 :
-                vetorOrdenado[i].diaDaSemana = 'Domingo'
-                break
-            case 1 :
-                vetorOrdenado[i].diaDaSemana = 'Segunda'
-                break
-            case 2 :
-                vetorOrdenado[i].diaDaSemana = 'Terça'
-                break
-            case 3 :
-                vetorOrdenado[i].diaDaSemana = 'Quarta'
-                break
-            case 4 :
-                vetorOrdenado[i].diaDaSemana = 'Quinta'
-                break
-            case 5:
-                vetorOrdenado[i].diaDaSemana = 'Sexta'
-                break
-            case 6 :
-                vetorOrdenado[i].diaDaSemana = 'Sábado'
-                break
-        }
-        switch (vetorOrdenado[i].turno){
-            case 0:
-                vetorOrdenado[i].turno = 'Manhã'
-                break
-            case 1:
-                vetorOrdenado[i].turno = 'Tarde'
-                break
-            case 2:
-                vetorOrdenado[i].turno = 'Noite'
-                break
-        }
-    }
     return vetorOrdenado
   }
 
@@ -373,12 +299,12 @@ export default function AtividadesProfissional({route}) {
       </table>
 
       <h3 style=' display: flex; align-items: center; justify-content: center;'>
-        Informações do Aplicativo
+        Informações Gerais
       </h3>
       <table width="100%" style=' margin-top: 15px; margin-bottom: 15px;' >
         <tr>
           <td>
-            <h5 style='margin: 5px'>Lembrete:
+            <h5 style='margin: 5px'>Lembrete do Terapeuta:
               <span style='font-weight: normal;'>
                 ${paciente.lembrete}
               </span>
@@ -387,7 +313,7 @@ export default function AtividadesProfissional({route}) {
         </tr>
         <tr>
           <td>
-            <h5 style='margin: 5px'>Anotações:
+            <h5 style='margin: 5px'>Anotações do Paciente:
               <span style='font-weight: normal;'>
               ${paciente.anotacoes}
               </span>

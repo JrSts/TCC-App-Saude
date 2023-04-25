@@ -75,6 +75,72 @@ export default function CadastrarAtividade({route}) {
     setDiasDaSemana(list)
   }
 
+  function indexDiaTurno(diaDaSemana, turno) {
+    if (diaDaSemana == 'Domingo' && turno == 'Manhã') {
+      return 0
+    }
+    if (diaDaSemana == 'Domingo' && turno == 'Tarde') {
+      return 1
+    }
+    if (diaDaSemana == 'Domingo' && turno == 'Noite') {
+      return 2
+    }
+    if (diaDaSemana == 'Segunda' && turno == 'Manhã') {
+      return 10
+    }
+    if (diaDaSemana == 'Segunda' && turno == 'Tarde') {
+      return 11
+    }
+    if (diaDaSemana == 'Segunda' && turno == 'Noite') {
+      return 12
+    }
+    if (diaDaSemana == 'Terça' && turno == 'Manhã') {
+      return 20
+    }
+    if (diaDaSemana == 'Terça' && turno == 'Tarde') {
+      return 21
+    }
+    if (diaDaSemana == 'Terça' && turno == 'Noite') {
+      return 22
+    }
+    if (diaDaSemana == 'Quarta' && turno == 'Manhã') {
+      return 30
+    }
+    if (diaDaSemana == 'Quarta' && turno == 'Tarde') {
+      return 31
+    }
+    if (diaDaSemana == 'Quarta' && turno == 'Noite') {
+      return 32
+    }
+    if (diaDaSemana == 'Quinta' && turno == 'Manhã') {
+      return 40
+    }
+    if (diaDaSemana == 'Quinta' && turno == 'Tarde') {
+      return 41
+    }
+    if (diaDaSemana == 'Quinta' && turno == 'Noite') {
+      return 42
+    }
+    if (diaDaSemana == 'Sexta' && turno == 'Manhã') {
+      return 50
+    }
+    if (diaDaSemana == 'Sexta' && turno == 'Tarde') {
+      return 51
+    }
+    if (diaDaSemana == 'Sexta' && turno == 'Noite') {
+      return 52
+    }
+    if (diaDaSemana == 'Sábado' && turno == 'Manhã') {
+      return 60
+    }
+    if (diaDaSemana == 'Sábado' && turno == 'Tarde') {
+      return 61
+    }
+    if (diaDaSemana == 'Sábado' && turno == 'Noite') {
+      return 62
+    }
+  }
+
    useEffect(() => {
     preencherTurnos()
     preencherDiasSemana()
@@ -105,6 +171,7 @@ export default function CadastrarAtividade({route}) {
               turno: turnos[j],
               status: false,
               horario: '',
+              hash: indexDiaTurno(diasDaSemana[i], turnos[j])
             }).then(() => console.log('ok'))
           }        
         }
