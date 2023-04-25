@@ -4,7 +4,6 @@ import THEME from '../../THEME'
 const style = StyleSheet.create({
   button: {
     flexDirection: "row",
-    justifyContent: "space-between",
     marginTop: 15,
     padding: 15,
     backgroundColor: THEME.COLORS.INPUT,
@@ -14,6 +13,7 @@ const style = StyleSheet.create({
 
   buttonLabel: {
     fontSize: 20,
+    marginLeft: 10,
     fontWeight: "bold",
     color: THEME.COLORS.BUTTON
   }

@@ -5,7 +5,7 @@ import TitleBar from '../../Components/TitleBar'
 import AtividadeProfissional from '../../Components/AtividadeProfissional'
 import ButtonsAtividadesLembretes from '../../Components/ButtonsAtividadesLembretes'
 import THEME from '../../THEME'
-import Icon from '@expo/vector-icons/FontAwesome5'
+import Icon from '@expo/vector-icons/FontAwesome'
 import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
 import Firestore from '@react-native-firebase/firestore'
@@ -147,7 +147,7 @@ export default function AtividadesProfissional({route}) {
       <View style={styles.content}>
         <TouchableOpacity onPress={() => gerarRelatorio()}>
           <Icon 
-            name='file-download'
+            name='file-pdf-o'
             size={40}
             style={styles.img}
             color= {THEME.COLORS.BUTTON}
