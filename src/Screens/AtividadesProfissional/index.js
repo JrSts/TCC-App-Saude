@@ -65,8 +65,8 @@ export default function AtividadesProfissional({route}) {
             observacao: doc.data().observacao,
             avaliacao: doc.data().avaliacao,
             diaDaSemana: doc.data().diaDaSemana,
-            turno: doc.data().turno
-
+            turno: doc.data().turno,
+            hash: doc.data().hash
           })
         }
         let auxOrdenado = ordenarLista(aux)
@@ -75,7 +75,6 @@ export default function AtividadesProfissional({route}) {
     }))
     return () => subscriber()
   }, [idTask])
-  
 
   useEffect(() => {
     const subscriber = 
@@ -176,7 +175,7 @@ export default function AtividadesProfissional({route}) {
       let body = ''
   
       let lista = respostas.filter(resposta => resposta.idAtividade == ativid.id)
-  
+      
       for (let i = 0; i < lista.length; i++) {
         body += `
         <tr>
