@@ -18,15 +18,21 @@ export default function GravarObservacao({route}) {
   const item = route.params.item
   
   function addObservacao(){
-    Firestore().collection('Respostas').doc(item.id).update({
-      observacao,
-      avaliacao,
-      status: avaliacao != '' && observacao != '' ? true : false,
-      horario: new Date(Date.now())
-    })
-    .then(() => Alert.alert('Parabens!!!', 'Você conseguiu realizar esta atividade!'))
-    .catch((error) => console.log(error))
-    navigation.goBack()
+    if (observacao != '') {
+      Firestore().collection('Respostas').doc(item.id).update({
+        observacao
+      })
+      navigation.goBack()
+    }
+
+    if (avaliacao != '') {
+      Firestore().collection('Respostas').doc(item.id).update({
+        avaliacao,
+        status: true
+      }).then(() => Alert.alert('Parabens!!!', 'Você conseguiu realizar esta atividade!'))
+      .catch((error) => console.log(error))
+      navigation.goBack()
+    }
   }
 
   useEffect(() => {
@@ -49,7 +55,7 @@ export default function GravarObservacao({route}) {
         <Text style={styles.subtitle}>{atividade.nome} - {item.diaDaSemana} pela {item.turno}</Text>
         <Text style={[styles.subtitle, {paddingBottom: 15}]}>Observação</Text>
         <CaixaTextoDescricao 
-          title='Faça observações sobre a atividade' 
+          title='Faça observações sobre a atividade (Optativo)' 
           onChangeText={setObservacao} 
           value={observacao}
         />
