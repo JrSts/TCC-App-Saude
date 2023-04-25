@@ -106,7 +106,7 @@ export default function InfoPerfil() {
       <View>
           <Text style={styles.name}>{data.nome}</Text>
           <Text style={styles.desc}>Fonoaudiólogo(a)</Text>
-          <Text style={styles.desc}>CRFono {data.CRFono}</Text>
+          <Text style={styles.desc}>CRFA {data.CRFono}</Text>
           <Text style={styles.desc}>Celular {data.phone}</Text>
           <Text style={styles.desc}>E-mail {data.email}</Text>
         </View>
