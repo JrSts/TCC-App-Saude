@@ -21,12 +21,18 @@ export default function GravarObservacao({route}) {
     if (observacao != '') {
       Firestore().collection('Respostas').doc(item.id).update({
         observacao
+      }).then(() => {
+        if (avaliacao == ''){
+          Alert.alert('Realizar Atividade', 'Sua observação foi registrada, atribua uma nota para finalizar a atividade.')
+        }
       })
+      .catch((error) => console.log(error))
       navigation.goBack()
     }
 
     if (avaliacao != '') {
       Firestore().collection('Respostas').doc(item.id).update({
+        observacao,
         avaliacao,
         status: true,
         horario: new Date(Date.now())
