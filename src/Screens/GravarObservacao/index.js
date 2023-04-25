@@ -27,7 +27,6 @@ export default function GravarObservacao({route}) {
         }
       })
       .catch((error) => console.log(error))
-      navigation.goBack()
     }
 
     if (avaliacao != '') {
