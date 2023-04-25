@@ -8,6 +8,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: "3%",
   },
 
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10
+  },
+
+  checkboxlabel: {
+    fontSize: 16,
+  },
+
   title: {
     flex: 1,
     fontSize: 25,
@@ -27,7 +37,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: THEME.COLORS.BUTTON,
   },
-
 })
 
 export default styles

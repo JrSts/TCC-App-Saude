@@ -12,6 +12,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+
+  checkboxlabel: {
+    fontSize: 16,
+  },
+
   title: {
     fontSize: 25,
     fontWeight: 'bold',

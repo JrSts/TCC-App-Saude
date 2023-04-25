@@ -8,12 +8,14 @@ import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import Load from '../Load'
 import THEME from '../../THEME'
+import { Checkbox } from 'react-native-paper'
 
 export default function FormLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false)
-
+  const [exibirSenha, setExibirSenha] = useState(false)
+  
   const navigation = useNavigation()
 
   
@@ -45,7 +47,16 @@ export default function FormLogin() {
       <Text style={styles.title}>Login</Text>
       <View style={styles.containerForm}> 
         <TextInput style={StyleInput.input} placeholder="Email" onChangeText={setEmail}/>
-        <TextInput style={StyleInput.input} placeholder="Senha" onChangeText={setPassword} secureTextEntry/>
+        <TextInput style={StyleInput.input} placeholder="Senha" onChangeText={setPassword} secureTextEntry={!exibirSenha}/>
+        <View style={styles.checkboxContainer}>
+            <Checkbox
+              status={exibirSenha ? 'checked' : 'unchecked'}
+              onPress={() => {setExibirSenha(!exibirSenha);}}
+              color={THEME.COLORS.BUTTON}
+              value={exibirSenha}
+            /> 
+            <Text style={styles.checkboxlabel}>Exibir Senha</Text>
+          </View>
         <TouchableOpacity 
           style={StyleButton.buttonBox} 
           isLoading={isLoading} 

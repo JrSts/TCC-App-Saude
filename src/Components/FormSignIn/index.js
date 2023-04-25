@@ -14,11 +14,14 @@ import StyleButton from '../Button/style'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Auth from '@react-native-firebase/auth'
 import Firestore from "@react-native-firebase/firestore"
+import { Checkbox } from 'react-native-paper'
+import THEME from '../../THEME'
 
 export default function FormSignIn() {
   
   const [isLoading, setIsLoading] = useState(false)
   const [isPaciente, setIsPaciente] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(false)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,8 +34,10 @@ export default function FormSignIn() {
   const [CRFono, setCRFono] = useState('')
   const [anotacoes, setAnotacoes] = useState('')
   const [lembrete, setLembrete] = useState('')
-  //const [codigoSeguranca, setCodigoSeguranca] = useState()
+  const [codigoSeguranca, setCodigoSeguranca] = useState()
   const idProfissional = ''
+
+  const [exibirSenha, setExibirSenha] = useState(false)
   
   const navigation = useNavigation()
 
@@ -62,7 +67,7 @@ export default function FormSignIn() {
           <TextInput style={StyleInput.input} placeholder="Telefone" onChangeText={setPhone} />
           <TextInput style={StyleInput.input} placeholder="Data de Nascimento" onChangeText={setDataNascimento} />
           {!isPaciente ?
-            <TextInput style={StyleInput.input} placeholder="CRFono" onChangeText={setCRFono} />
+            <TextInput style={StyleInput.input} placeholder="CRFA" onChangeText={setCRFono} />
           : 
             <View>
               <TextInput style={StyleInput.input} placeholder="Apelido" onChangeText={setApelido} />
@@ -71,17 +76,29 @@ export default function FormSignIn() {
             </View>
           } 
           <TextInput style={StyleInput.input} placeholder="E-mail" onChangeText={setEmail}/>
-          <TextInput style={StyleInput.input} placeholder="Senha" onChangeText={setPassword} secureTextEntry/>
-
+          <TextInput style={StyleInput.input} placeholder="Senha (6 Caracteres ou mais)" onChangeText={setPassword} secureTextEntry={!exibirSenha}/>
+          <View style={styles.checkboxContainer}>
+            <Checkbox
+              status={exibirSenha ? 'checked' : 'unchecked'}
+              onPress={() => {setExibirSenha(!exibirSenha);}}
+              color={THEME.COLORS.BUTTON}
+              value={exibirSenha}
+            /> 
+            <Text style={styles.checkboxlabel}>Exibir Senha</Text>
+          </View>
         </View>
       </ScrollView>
       <View style={styles.containerButton}>
         <TouchableOpacity 
-          style={StyleButton.buttonBox} 
+          style={password.length < 6 ? StyleButton.buttonBoxDisabled : StyleButton.buttonBox} 
           onPress={() => createUser()}
           isLoading={isLoading}
+          disabled={password.length < 6 ? true : false}
           >
-          { isLoading ? <ActivityIndicator />  : <Text style={StyleButton.buttonLabel}>Cadastrar</Text>}
+          { isLoading ? <ActivityIndicator />  : 
+            <Text style={password.length < 6 ? StyleButton.buttonLabelDisabled : StyleButton.buttonLabel}>
+              Cadastrar
+            </Text>}
         </TouchableOpacity>
       </View>
 
