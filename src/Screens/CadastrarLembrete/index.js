@@ -38,7 +38,7 @@ export default function CadastrarLembrete({route}) {
     Firestore().collection('Pacientes').doc(idPaciente).update({
       lembrete: lembrete
     })
-    .then(() => Alert.alert('lembrete Cadastrado'))
+    .then(() => Alert.alert('Cadastrar Lembrete', 'Lembrete cadastrado com sucesso!'))
     .catch((error => console.log('Lembrete não Cadastrado, Erro: '+error)))
     navigation.goBack()
   }

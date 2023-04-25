@@ -28,7 +28,8 @@ export default function GravarObservacao({route}) {
     if (avaliacao != '') {
       Firestore().collection('Respostas').doc(item.id).update({
         avaliacao,
-        status: true
+        status: true,
+        horario: new Date(Date.now())
       }).then(() => Alert.alert('Parabens!!!', 'Você conseguiu realizar esta atividade!'))
       .catch((error) => console.log(error))
       navigation.goBack()
