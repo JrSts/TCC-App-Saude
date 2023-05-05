@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 
   infoButton: {
     flexDirection: 'row',
-    width: '50%'
   },  
 
   avatar:{
@@ -46,7 +45,8 @@ const styles = StyleSheet.create({
   },
 
   addUser: {
-    right: -20
+    right: 0,
+    position: 'absolute'
   }
 })
 

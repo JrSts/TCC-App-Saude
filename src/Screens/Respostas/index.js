@@ -62,8 +62,7 @@ export default function Respostas({route}) {
     })
     return () => subscriber
   }, [])
-  
-console.log(respostas)
+
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar title='Respostas' />

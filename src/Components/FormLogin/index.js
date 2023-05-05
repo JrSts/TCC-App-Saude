@@ -37,7 +37,7 @@ export default function FormLogin() {
       setIsLoading(true)
       Auth().signInWithEmailAndPassword(email, password)
       .then(() => {Alert.alert("Seja Bem Vindo!")})
-      .catch((error) => { Alert.alert("Erro => ", error) })
+      .catch(() => Alert.alert("Ops, ocorreu um erro!", "Você já está cadastrado? Se não estiver cadastrado, por favor clique em 'Não Tenho Cadastro'."))
       .finally(() => {setIsLoading(false)})
     }
   }

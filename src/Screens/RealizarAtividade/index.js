@@ -106,10 +106,10 @@ async function scheduleNotification(date) {
     hideDateTimePicker()
     addAlarme(date)
     setAlarme(date)
-    setDatalabel(`Horário de hoje: ${date.getHours()} : ${date.getMinutes()}`)
+    setDatalabel(`Horário de hoje: ${format(date.getHours())} : ${format(date.getMinutes())}`)
     scheduleNotification(date)
-      .then(() => console.log("notificação agendada com sucesso"))
-      .catch((error) => console.log("O agendamento nao foi registrado.", error))
+      .then(() => Alert.alert("Notificação cadastrada com sucesso"))
+      .catch((error) => Alert.alert("O agendamento não foi registrado."))
   };
 
   function format(number){
@@ -117,12 +117,6 @@ async function scheduleNotification(date) {
       return '0'+number
     else
       return number
-  }
-
-  function finalizarTarefa() {
-    Firestore().collection('Atividades').doc(item.id).update({
-      status: true
-    }).then(() => Alert.alert("Tarefa Finalizada!"))
   }
 
   return (

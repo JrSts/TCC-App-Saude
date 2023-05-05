@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style'
 import TitleBar from '../../Components/TitleBar'
@@ -13,7 +13,7 @@ export default function GravarObservacao({route}) {
   const navigation = useNavigation()
   const atividade = route.params.atividade  
   const [observacao, setObservacao] = useState('')
-  const [avaliacao, setAvaliacao] = useState(null)
+  const [avaliacao, setAvaliacao] = useState('')
   
   const item = route.params.item
   
@@ -39,6 +39,10 @@ export default function GravarObservacao({route}) {
       .catch((error) => console.log(error))
       navigation.goBack()
     }
+
+    if (avaliacao == '' && observacao == '') {
+      Alert.alert('Atenção', 'Você não inseriu dados aqui, por favor faca uma observação ou uma avaliação e depois clique em Salvar Dados')
+    }
   }
 
   useEffect(() => {
@@ -59,16 +63,14 @@ export default function GravarObservacao({route}) {
       <TitleBar title='Atividade' />
       <View style={styles.content}>
         <Text style={styles.subtitle}>{atividade.nome} - {item.diaDaSemana} pela {item.turno}</Text>
-        <Text style={[styles.subtitle, {paddingBottom: 15}]}>Observação</Text>
         <CaixaTextoDescricao 
           title='Faça observações sobre a atividade (Optativo)' 
           onChangeText={setObservacao} 
           value={observacao}
         />
         <Text style={styles.subtitle}>Avaliação</Text>
-        <Text style={[styles.subtitle, {textAlign: 'left' ,paddingBottom: 15}]}>Qual foi o nível de dificuldade em {atividade.nome}?</Text>
-         {/* Radio */}
-        <View>
+        <Text style={[styles.subtitle, {textAlign: 'left'}]}>Qual foi o nível de dificuldade em {atividade.nome}?</Text>
+        <ScrollView>
           <TouchableOpacity onPress={() => {setAvaliacao('Muito Difícil')}} style={styles.linha}>
             <Text style={styles.label}>Muito Difícil</Text>
             <RadioButton
@@ -114,7 +116,7 @@ export default function GravarObservacao({route}) {
               color={THEME.COLORS.BUTTON}
             />
           </TouchableOpacity>
-        </View>
+        </ScrollView>
         <View style={styles.containerButton}>
           <Button title='Salvar Dados' onPress={addObservacao} />
         </View>

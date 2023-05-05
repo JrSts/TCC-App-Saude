@@ -3,7 +3,7 @@ import { StyleSheet, Platform} from 'react-native'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS=='android'? 20 : 0
+    paddingTop: Platform.OS=='android'? 15 : 0
   },
 
   content: {
@@ -12,15 +12,17 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    fontSize:20,
-    marginTop:15,
-    textAlign:"center"
+    fontSize: 20,
+    marginVertical: 10,
+    textAlign: "center"
   },
+
   containerButton: {
-    flex: 1,
+    height: '13%',
     justifyContent:'flex-end',
     bottom: 15,
   },
+
   linha: {
     flexDirection: "row-reverse",
     alignItems: "center",
