@@ -10,29 +10,29 @@ import Firestore from "@react-native-firebase/firestore"
 export default function App() {
   const [user, setUser] = useState(null)
   const [isPaciente, setIsPaciente] = useState(null)
-  const currentUser = user ? Auth().currentUser.uid : null
-
+  const currentUser = user && Auth().currentUser.uid
   useEffect(() => {
     const subscriber = Auth().onAuthStateChanged(setUser)
     return subscriber
   }, [])
 
-  useEffect(() => {
-    Firestore()
+  useEffect (() => {
+    const subscriber = Firestore()
     .collection('Pacientes')
-    .where('id','==', currentUser)
-    .onSnapshot(query => query.docs.map(doc => {
-      if (doc.data().id == currentUser){
-        setIsPaciente(true)
-      } else {
+    .where('id', '==', currentUser)
+    .get()
+    .then((res) => {
+      if (res.empty) {
         setIsPaciente(false)
+      } else {
+        setIsPaciente(true)
       }
-    }))
+    })
   }, [currentUser])
-  
-  return (   
-    <NavigationContainer>    
-      { !user ? <AuthNavigator /> : (isPaciente ? <Paciente /> : <Profissional />) }
+
+  return (
+    <NavigationContainer>
+      { !user ? <AuthNavigator /> : isPaciente ? <Paciente /> : <Profissional /> }
     </NavigationContainer>
   )
 }

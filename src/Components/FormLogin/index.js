@@ -1,10 +1,9 @@
-import { Text, TouchableOpacity, View, Alert} from 'react-native'
+import { Text, TouchableOpacity, View, Alert, TextInput} from 'react-native'
 import React, { useState } from 'react'
 import StyleButton from '../../Components/Button/style'
 import StyleInput from '../../Components/Input/style'
 import styles from './style'
 import Auth from '@react-native-firebase/auth'
-import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import Load from '../Load'
 import THEME from '../../THEME'
@@ -37,7 +36,7 @@ export default function FormLogin() {
       setIsLoading(true)
       Auth().signInWithEmailAndPassword(email, password)
       .then(() => {Alert.alert("Seja Bem Vindo!")})
-      .catch(() => Alert.alert("Ops, ocorreu um erro!", "Você já está cadastrado? Se não estiver cadastrado, por favor clique em 'Não Tenho Cadastro'."))
+      .catch(() => {Alert.alert("Ops, ocorreu um erro!", "Você já está cadastrado? Se não estiver cadastrado, por favor clique em 'Não Tenho Cadastro'.")})
       .finally(() => {setIsLoading(false)})
     }
   }

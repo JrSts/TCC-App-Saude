@@ -21,7 +21,6 @@ export default function InfoPerfil() {
   const navigation = useNavigation()
 
   function signOut() {
-    <Load color={THEME.COLORS.BUTTON}/>
     Auth().signOut()
   }
 
@@ -40,7 +39,7 @@ export default function InfoPerfil() {
       })
       setIsLoading(false)
     return () => subscriber()
-  }, [])
+  }, [currentUser])
 
   useEffect(() => {
     setIsLoading(true)
@@ -57,7 +56,7 @@ export default function InfoPerfil() {
     }))
     setIsLoading(false)
     return () => subscriber()
-  }, [])
+  }, [currentUser])
  
 
   return (

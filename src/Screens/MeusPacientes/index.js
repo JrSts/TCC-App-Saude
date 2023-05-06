@@ -108,7 +108,7 @@ export default function MeusPacientes() {
           })
         }
       })
-    }, [])
+    }, [user])
 
     const subscriber = Firestore()
       .collection('Pacientes')

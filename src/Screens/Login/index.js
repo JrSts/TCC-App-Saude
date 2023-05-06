@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import FormLogin from '../../Components/FormLogin'
 import styles from './style'
 
-import notifee, { AndroidImportance, EventType, TriggerType } from '@notifee/react-native'
+import notifee from '@notifee/react-native'
 
 export default function Login() {
 
