@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style'
 import {FontAwesome, SimpleLineIcons} from '@expo/vector-icons'
@@ -86,14 +86,14 @@ export default function InfoPerfil() {
       isLoading ? 
         <Load />
       :
-        <View>
+        <ScrollView>
           <Text style={styles.name}>{data.nome}</Text>
           <Text style={styles.desc}>Data de Nascimento {data.dataNascimento}</Text>
           <Text style={styles.desc}>Hipótese {data.hipotese}</Text>
           <Text style={styles.desc}>Celular {data.phone}</Text>
           <Text style={styles.desc}>E-mail {data.email}</Text>
           <Text style={styles.codigo}>Código de Segurança {data.codigoSeguranca}</Text>
-        </View>
+        </ScrollView>
     )
   }
 
@@ -102,13 +102,13 @@ export default function InfoPerfil() {
       isLoading ? 
       <Load />
       :
-      <View>
+      <ScrollView>
           <Text style={styles.name}>{data.nome}</Text>
           <Text style={styles.desc}>Fonoaudiólogo(a)</Text>
           <Text style={styles.desc}>CRFA {data.CRFono}</Text>
           <Text style={styles.desc}>Celular {data.phone}</Text>
           <Text style={styles.desc}>E-mail {data.email}</Text>
-        </View>
+        </ScrollView>
     )
   }
 }

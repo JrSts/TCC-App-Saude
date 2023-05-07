@@ -50,7 +50,7 @@ export default function AtualizarPerfil({ route }) {
     try {
       setIsLoading(true)
       Firestore()
-        .collection('Paciente')
+        .collection('Pacientes')
         .doc(idPerfil)
         .update({
           nome, 
